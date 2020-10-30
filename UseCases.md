@@ -11,7 +11,7 @@
 **Add risk to projekt**<br/>
 1. Projektlederen trykker på “Tilføj risiko” <br/>
 2. Projektlederen angiver “Risiko”, “sandsynlighed for risikoen forekommer”, og “konsvekvens af risikoens forekommen”
-<br/>
+
 
 ## Use case 3
 **Delete risk(s) from projekt**<br/>
