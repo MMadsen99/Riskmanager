@@ -1,4 +1,4 @@
-# Vision Document for Riskmanage
+# Vision Document for Riskmanager
 **Visionen:**
 
  -Applikationen leverer løbende værdi til vores  projektleder ved at levere en gennemprøvede,<br/>
