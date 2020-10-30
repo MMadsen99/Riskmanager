@@ -16,7 +16,7 @@ undgå potentielle kriser. Projektlederen er interesseret i en effektiv løsning
 med at holde styr på de forskellige risici. og dermed sikre at uforudsete omkostninger bliver holdt nede.<br/>
 -Datatilsynet er interesseret i at eventuelle personlige informationer der gennem behandles korrekt i forhold til GDPR.   
 
-**Feature-list: **
+**Feature-list:**
 Systemet udfører 
 
 -Risicimanagement<br/>
