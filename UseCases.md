@@ -25,7 +25,7 @@
 2. Projektlederen ændre på de felter der skal modificeres(Risiko”, “sandsynlighed for risikoen forekommer”, og “konsvekvens af risikoens forekommen”, “revideret konsekvens”, og “revideret sandsynlighed”<br/>
 3. Systemet beregner en ny prioritet for risikoen, og erstatter den gamle risiko med nye.<br/>
 
-##Use case 5
+## Use case 5
 **Save project**<br/>
 1. Projektlederen trykker “Gem projekt”<br/>
 2. Systemet gemmer projektet<br/>
