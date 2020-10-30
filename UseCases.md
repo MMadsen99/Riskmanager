@@ -34,6 +34,3 @@ Load projekt<br/>
 1. Projektlederen trykker på “Load projekt”, og vælger i stifinderen sin projektfil.<br/>
 2. Systemet åbner projektet.<br/>
 
-**Use case 7**
-Set email-reminder<br/>
-1. Projektlederen<br/>
