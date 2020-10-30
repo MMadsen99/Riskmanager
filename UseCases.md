@@ -7,7 +7,7 @@ Create Project
 -Projektlederen angiver projekttitel
 -RiskManager skaber projektet
 
-##Use case 2
+###Use case 2
 Add risk to projekt
 -Projektlederen trykker på “Tilføj risiko”
 -Projektlederen angiver “Risiko”, “sandsynlighed for risikoen forekommer”, og “konsvekvens af risikoens forekommen”
