@@ -11,6 +11,7 @@
 **Add risk to projekt**<br/>
 1. Projektlederen trykker på “Tilføj risiko” <br/>
 2. Projektlederen angiver “Risiko”, “sandsynlighed for risikoen forekommer”, og “konsvekvens af risikoens forekommen”
+3. Systemet beregner risikoens priotitet
 
 
 ## Use case 3
@@ -23,7 +24,7 @@
 **Modify risk**<br/>
 1. Projektlederen vælger den risiko, der skal modificeres<br/>
 2. Projektlederen ændre på de felter der skal modificeres(Risiko”, “sandsynlighed for risikoen forekommer”, og “konsvekvens af risikoens forekommen”, “revideret konsekvens”, og “revideret sandsynlighed”<br/>
-3. Systemet beregner en ny prioritet for risikoen, og erstatter den gamle risiko med nye.<br/>
+3. Systemet beregner en ny prioritet for risikoen, og erstatter den gamle prioritet med den nye.<br/>
 
 ## Use case 5
 **Save project**<br/>
