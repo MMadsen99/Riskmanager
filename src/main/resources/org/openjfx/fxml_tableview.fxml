@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.collections.FXCollections?>
+<?import org.openjfx.model.Risk?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import org.openjfx.FormattedTableCellFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import com.sun.javafx.scene.control.DoubleField?>
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.openjfx.FXMLTableViewController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Address Book" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    </Label>
+    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn text="Risk" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="name" />
+                </cellValueFactory>
+                <cellFactory>
+                    <FormattedTableCellFactory alignment="left">
+                    </FormattedTableCellFactory>
+                </cellFactory>
+            </TableColumn>
+            <TableColumn text="Cost" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="cost" />
+                </cellValueFactory>
+                <cellFactory>
+                    <FormattedTableCellFactory alignment="left">
+                    </FormattedTableCellFactory>
+                </cellFactory>
+            </TableColumn>
+            <TableColumn fx:id="riskPriorityColumn" text="Priority" prefWidth="200">
+                <cellValueFactory><PropertyValueFactory property="priority" />
+                </cellValueFactory>
+                <cellFactory>
+                    <FormattedTableCellFactory alignment="right">
+                    </FormattedTableCellFactory>
+                </cellFactory>
+            </TableColumn>
+        </columns>
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+            </FXCollections>
+        </items>
+        <sortOrder><fx:reference source="riskPriorityColumn"/>
+        </sortOrder>
+    </TableView>
+    <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0"
+          GridPane.rowIndex="2">
+        <TextField fx:id="riskNameField" promptText="Risk Name"
+                   prefWidth="90"/>
+        <TextField fx:id="riskCostField" promptText="cost"
+                   prefWidth="90"/>
+        <TextField fx:id="riskProbabilityField" promptText="probability"
+                   prefWidth="150"/>
+        <Button text="Add" onAction="#addRisk"/>
+        <Button text="Remove" onAction="#removeRisk"/>
+    </HBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
