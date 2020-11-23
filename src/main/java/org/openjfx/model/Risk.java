@@ -57,5 +57,8 @@ public class Risk {
         return priority.get();
     }
 
-
+    public String getString() {
+        return "Risk: " + this.getName() + "\n" + "Cost: " + this.getCost() + "\n" + "Probability: " + this.getProbability()
+                                                                                                     + "\n" + this.getPriority();
+    }
 }

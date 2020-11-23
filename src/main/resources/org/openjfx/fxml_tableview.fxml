@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import org.openjfx.*?>
 
-<AnchorPane prefHeight="377.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.FXMLTableViewController">
+<AnchorPane onMouseClicked="#resetDescription" prefHeight="377.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.RiskViewController">
    <children>
        <Label layoutX="252.0" layoutY="27.0" style="-fx-font: NORMAL 20 Tahoma;" text="Risks">
     </Label>
-       <TableView  onMouseClicked="#loadDescription" fx:id="tableView" layoutX="252.0" layoutY="55.0" prefHeight="270.0" prefWidth="338.0">
+       <TableView fx:id="tableView" layoutX="252.0" layoutY="55.0" onMouseClicked="#loadDescription" prefHeight="270.0" prefWidth="338.0">
            <columns>
                <TableColumn prefWidth="100" text="Risk">
                    <cellValueFactory>
@@ -55,9 +55,10 @@
            <Button onAction="#addRisk" prefHeight="26.0" prefWidth="50.0" text="Add" />
            <Button onAction="#removeRisk" text="Remove" />
        </HBox>
-      <TitledPane fx:id="riskPane" animated="false" layoutX="42.0" layoutY="55.0" prefHeight="270.0" prefWidth="202.0" text="untitled">
+      <TitledPane fx:id="riskPane" animated="false" layoutX="42.0" layoutY="55.0" prefHeight="270.0" prefWidth="202.0" text="Risk Summary">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <TextArea fx:id="summaryTextArea" />
         </content>
       </TitledPane>
    </children>
