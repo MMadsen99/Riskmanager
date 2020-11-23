@@ -1,28 +1,27 @@
 package org.openjfx.model;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
-public class Risk {
+
+public class Risk extends Project {
+
 
     private final SimpleStringProperty name = new SimpleStringProperty("");
     private final SimpleDoubleProperty cost = new SimpleDoubleProperty();
     private final SimpleDoubleProperty probability = new SimpleDoubleProperty();
     private final SimpleDoubleProperty priority = new SimpleDoubleProperty();
 
-
     public Risk() {
         this("", 0.0, 0.0);
     }
 
     public Risk(String riskName, Double costValue, Double probabilityValue) {
+
         setName(riskName);
         setCost(costValue);
         setProbability(probabilityValue);
         setPriority();
+        Project.risks.add(this);
     }
 
     private void setProbability(Double probabilityValue) {
@@ -59,6 +58,6 @@ public class Risk {
 
     public String getString() {
         return "Risk: " + this.getName() + "\n" + "Cost: " + this.getCost() + "\n" + "Probability: " + this.getProbability()
-                                                                                                     + "\n" + this.getPriority();
+                                                                                                     + "\n\n" + "Priority: " + this.getPriority();
     }
 }
