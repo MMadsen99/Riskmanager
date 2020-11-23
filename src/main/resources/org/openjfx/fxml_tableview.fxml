@@ -1,78 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import org.openjfx.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import org.openjfx.model.Risk?>
-
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import org.openjfx.FormattedTableCellFactory?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<?import com.sun.javafx.scene.control.DoubleField?>
-<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.openjfx.FXMLTableViewController">
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
-    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Address Book" GridPane.columnIndex="0" GridPane.rowIndex="0">
+<AnchorPane prefHeight="377.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.FXMLTableViewController">
+   <children>
+       <Label layoutX="252.0" layoutY="27.0" style="-fx-font: NORMAL 20 Tahoma;" text="Risks">
     </Label>
-    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
-        <columns>
-            <TableColumn text="Risk" prefWidth="100">
-                <cellValueFactory><PropertyValueFactory property="name" />
-                </cellValueFactory>
-                <cellFactory>
-                    <FormattedTableCellFactory alignment="left">
+       <TableView  onMouseClicked="#loadDescription" fx:id="tableView" layoutX="252.0" layoutY="55.0" prefHeight="270.0" prefWidth="338.0">
+           <columns>
+               <TableColumn prefWidth="100" text="Risk">
+                   <cellValueFactory>
+                  <PropertyValueFactory property="name" />
+                   </cellValueFactory>
+                   <cellFactory>
+                       <FormattedTableCellFactory alignment="left">
                     </FormattedTableCellFactory>
-                </cellFactory>
-            </TableColumn>
-            <TableColumn text="Cost" prefWidth="100">
-                <cellValueFactory><PropertyValueFactory property="cost" />
-                </cellValueFactory>
-                <cellFactory>
-                    <FormattedTableCellFactory alignment="left">
+                   </cellFactory>
+               </TableColumn>
+               <TableColumn prefWidth="100" text="Cost">
+                   <cellValueFactory>
+                  <PropertyValueFactory property="cost" />
+                   </cellValueFactory>
+                   <cellFactory>
+                       <FormattedTableCellFactory alignment="left">
                     </FormattedTableCellFactory>
-                </cellFactory>
-            </TableColumn>
-            <TableColumn fx:id="riskPriorityColumn" text="Priority" prefWidth="200">
-                <cellValueFactory><PropertyValueFactory property="priority" />
-                </cellValueFactory>
-                <cellFactory>
-                    <FormattedTableCellFactory alignment="right">
+                   </cellFactory>
+               </TableColumn>
+               <TableColumn fx:id="riskPriorityColumn" prefWidth="100" text="Priority">
+                   <cellValueFactory>
+                  <PropertyValueFactory property="priority" />
+                   </cellValueFactory>
+                   <cellFactory>
+                       <FormattedTableCellFactory alignment="right">
                     </FormattedTableCellFactory>
-                </cellFactory>
-            </TableColumn>
-        </columns>
-        <items>
-            <FXCollections fx:factory="observableArrayList">
+                   </cellFactory>
+               </TableColumn>
+           </columns>
+           <items>
+               <FXCollections fx:factory="observableArrayList">
             </FXCollections>
-        </items>
-        <sortOrder><fx:reference source="riskPriorityColumn"/>
-        </sortOrder>
-    </TableView>
-    <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0"
-          GridPane.rowIndex="2">
-        <TextField fx:id="riskNameField" promptText="Risk Name"
-                   prefWidth="90"/>
-        <TextField fx:id="riskCostField" promptText="cost"
-                   prefWidth="90"/>
-        <TextField fx:id="riskProbabilityField" promptText="probability"
-                   prefWidth="150"/>
-        <Button text="Add" onAction="#addRisk"/>
-        <Button text="Remove" onAction="#removeRisk"/>
-    </HBox>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+           </items>
+           <sortOrder>
+            <fx:reference source="riskPriorityColumn" />
+           </sortOrder>
+       </TableView>
+       <HBox alignment="TOP_RIGHT" layoutX="252.0" layoutY="336.0" spacing="10">
+           <TextField fx:id="riskNameField" prefHeight="26.0" prefWidth="81.0" promptText="Risk Name" />
+           <TextField fx:id="riskCostField" prefHeight="26.0" prefWidth="64.0" promptText="cost" />
+           <TextField fx:id="riskProbabilityField" prefHeight="26.0" prefWidth="40.0" promptText="probability" />
+           <Button onAction="#addRisk" prefHeight="26.0" prefWidth="50.0" text="Add" />
+           <Button onAction="#removeRisk" text="Remove" />
+       </HBox>
+      <TitledPane fx:id="riskPane" animated="false" layoutX="42.0" layoutY="55.0" prefHeight="270.0" prefWidth="202.0" text="untitled">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </TitledPane>
+   </children>
+</AnchorPane>

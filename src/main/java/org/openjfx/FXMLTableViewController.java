@@ -5,16 +5,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import org.openjfx.model.Risk;
 import org.openjfx.inputvalidation.InputValidation;
 
 public class FXMLTableViewController {
     @FXML
     private TableView<Risk> tableView;
+    @FXML
+    private TitledPane riskPane;
     @FXML private TextField riskNameField;
     @FXML private TextField riskCostField;
     @FXML private TextField riskProbabilityField;
-    @FXML private Alert emailAlert = new Alert(Alert.AlertType.ERROR);
+    @FXML private Alert inputNotDoubleAlert = new Alert(Alert.AlertType.ERROR);
+    @FXML private Alert inputContainsNumberAlert = new Alert(Alert.AlertType.ERROR);
 
     @FXML
     protected void addRisk() {
@@ -28,9 +33,9 @@ public class FXMLTableViewController {
             riskCostField.setText("");
             riskProbabilityField.setText("");
         } else {
-            emailAlert.setHeaderText("Bad Input Alert");
-            emailAlert.setContentText("Not a double..");
-            emailAlert.showAndWait();
+            inputNotDoubleAlert.setHeaderText("Bad Input Alert");
+            inputNotDoubleAlert.setContentText("Not a double..");
+            inputNotDoubleAlert.showAndWait();
         }
     }
     @FXML
@@ -39,4 +44,13 @@ public class FXMLTableViewController {
         tableView.getItems().remove(selectedRisk);
     }
 
+    public void loadDescription() {
+        try {
+            Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
+            riskPane.setText(selectedRisk.getName());
+        } catch (Exception e) {
+
+        }
+
+    }
 }
