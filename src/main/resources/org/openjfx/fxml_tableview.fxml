@@ -10,7 +10,7 @@
    <children>
        <Label layoutX="252.0" layoutY="27.0" style="-fx-font: NORMAL 20 Tahoma;" text="Risks">
     </Label>
-       <TableView fx:id="tableView" layoutX="252.0" layoutY="55.0" onMouseClicked="#loadDescription" prefHeight="270.0" prefWidth="338.0">
+       <TableView onKeyPressed="#deletePressed" fx:id="tableView" layoutX="252.0" layoutY="55.0" onMouseClicked="#loadDescription" prefHeight="270.0" prefWidth="338.0">
            <columns>
                <TableColumn prefWidth="100" text="Risk">
                    <cellValueFactory>
@@ -49,16 +49,16 @@
            </sortOrder>
        </TableView>
        <HBox alignment="TOP_RIGHT" layoutX="252.0" layoutY="336.0" spacing="10">
-           <TextField fx:id="riskNameField" prefHeight="26.0" prefWidth="81.0" promptText="Risk Name" />
-           <TextField fx:id="riskCostField" prefHeight="26.0" prefWidth="64.0" promptText="cost" />
-           <TextField fx:id="riskProbabilityField" prefHeight="26.0" prefWidth="40.0" promptText="probability" />
-           <Button onAction="#addRisk" prefHeight="26.0" prefWidth="50.0" text="Add" />
+           <TextField fx:id="riskNameField" onKeyPressed="#enterPressed" prefHeight="26.0" prefWidth="81.0" promptText="Risk Name" />
+           <TextField fx:id="riskCostField" onKeyPressed="#enterPressed" prefHeight="26.0" prefWidth="64.0" promptText="cost" />
+           <TextField fx:id="riskProbabilityField" onKeyPressed="#enterPressed" prefHeight="26.0" prefWidth="40.0" promptText="probability" />
+           <Button  onAction="#addRisk" prefHeight="26.0" prefWidth="50.0" text="Add" />
            <Button onAction="#removeRisk" text="Remove" />
        </HBox>
       <TitledPane fx:id="riskPane" animated="false" layoutX="42.0" layoutY="55.0" prefHeight="270.0" prefWidth="202.0" text="Risk Summary">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            <TextArea text="Chose a risk" fx:id="summaryTextArea" />
+            <TextArea fx:id="summaryTextArea" text="Chose a risk" />
         </content>
       </TitledPane>
       <Button fx:id="edit" layoutX="23.0" layoutY="337.0" mnemonicParsing="false" onAction="#editRisk" text="Edit risk" />

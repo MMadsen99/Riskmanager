@@ -1,69 +1,110 @@
 package org.openjfx;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.openjfx.inputvalidation.InputValidation;
-import org.openjfx.model.Project;
 import org.openjfx.model.Risk;
 
-import java.util.Optional;
-
 public class RiskViewController {
-    ;
-    @FXML
-    private TableView<Risk> tableView;
-    @FXML
-    private TitledPane riskPane;
-    @FXML
-    private TextArea summaryTextArea;
+
+
+    ///risk table, and the input fields
+    @FXML private TableView<Risk> tableView;
     @FXML private TextField riskNameField;
     @FXML private TextField riskCostField;
     @FXML private TextField riskProbabilityField;
 
-    @FXML private Alert inputNotDoubleAlert = new Alert(Alert.AlertType.ERROR);
-    @FXML private Alert editConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+    //risk description pane
+    @FXML private TitledPane riskPane;
+    @FXML private TextArea summaryTextArea;
+
+    //Popup alerts
+    @FXML private final Alert alert = new Alert(Alert.AlertType.ERROR);
+    @FXML private final Alert editConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+
+
+    ///Not working yet
+    @FXML
+    protected void enterPressed(KeyEvent e) {
+        if(e.getCode() == KeyCode.ENTER) {
+            addRisk();
+        }
+        deletePressed(e);
+    }
+
+    @FXML
+    private void deletePressed(KeyEvent e) {
+        if(e.getCode() == KeyCode.DELETE) {
+            Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
+            if( selectedRisk !=  null) {
+                removeRisk();
+            }
+        }
+    }
 
     @FXML
     protected void addRisk() {
-        ObservableList<Risk> data = tableView.getItems();
-
-        if (isUnique() && InputValidation.isDouble(riskProbabilityField, riskProbabilityField.getText())) {
-            data.add(new Risk(riskNameField.getText(),
-                    Double.parseDouble(riskCostField.getText()),
-                    Double.parseDouble(riskProbabilityField.getText())
-            ));
-            riskNameField.setText("");
-            riskCostField.setText("");
-            riskProbabilityField.setText("");
-        } else {
-            inputNotDoubleAlert.setHeaderText("Bad Input Alert");
-            inputNotDoubleAlert.setContentText("Not a double..");
-            inputNotDoubleAlert.showAndWait();
+        ObservableList<Risk> tableData = tableView.getItems();
+        if (checkFields()) {
+            tableData.add(new Risk(riskNameField.getText(), Double.parseDouble(riskCostField.getText()),
+                    Double.parseDouble(riskProbabilityField.getText())));
+            clearFields();
         }
     }
+
     @FXML
     protected void removeRisk() {
         Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
-        tableView.getItems().remove(selectedRisk);
+        if (selectedRisk == null) return;
+        editConfirm.setHeaderText("Deleting risk");
+        editConfirm.setContentText("Are you sure you want to delete the risk called " + "'" + selectedRisk.getName() + "'");
+        if(editConfirm.showAndWait().get() == ButtonType.OK) {
+            tableView.getItems().remove(selectedRisk);
+            resetDescription();
+        }
     }
 
     @FXML
-    public void loadDescription() {
+    protected void editRisk() {
+        Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedRisk != null) {
+
+            editConfirm.setContentText("Are you sure you want to edit the risk called " + "'" + selectedRisk.getName() + "'");
+
+            if(editConfirm.showAndWait().get() == ButtonType.OK) {
+                tableView.getItems().remove(selectedRisk);
+                addRisk();
+                loadDescription();
+            }
+        } else {
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("You haven't chosen a risk to edit");
+            alert.show();
+        }
+    }
+
+    @FXML
+    protected void loadDescription() {
         try {
             Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
             riskPane.setText(selectedRisk.getName());
             summaryTextArea.setText(selectedRisk.getString());
-        } catch (Exception e) {
-
-        }
-
+        } catch (Exception e) { }
     }
     @FXML
-    public boolean isUnique() {
+    protected void resetDescription() {
+        riskPane.setText("Risk Summary");
+        summaryTextArea.setText("Choose a risk");
+    }
+
+
+    private boolean nameIsUnique() {
         for (Risk r:tableView.getItems()
-             ) {
+        ) {
             if (r.getName().equals(riskNameField.getText())) {
                 return false;
             }
@@ -71,38 +112,38 @@ public class RiskViewController {
         return true;
     }
 
-    public void resetDescription() {
-        riskPane.setText("Risk Summary");
-        summaryTextArea.setText("Chose a risk");
-    }
 
-    public void editRisk() {
-        Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
+    //TODO Move checkFields and is Unique method into InputValidation class. Need getters for private fields.
+    private boolean checkFields() {
+        String alertMessage = "";
+        int throwAlarm = 1;
 
-        if (selectedRisk == null) {
-
+        if (!InputValidation.isOnlyLetters(riskNameField)) {
+            alertMessage += "Risk name field can only contain letters\n";
+            throwAlarm = 0;
         }
-        if (selectedRisk != null && InputValidation.isDouble(riskProbabilityField, riskProbabilityField.getText())) {
-
-            editConfirm.setContentText("Are you sure you want to edit the risk?");
-
-            if(editConfirm.showAndWait().get() == ButtonType.OK) {
-                tableView.getItems().remove(selectedRisk);
-                addRisk();
-            }
-            clearFields();
-
-        } else if (selectedRisk != null &&!InputValidation.isDouble(riskProbabilityField,
-                                                                    riskProbabilityField.getText())) {
-            inputNotDoubleAlert.setHeaderText("Bad Input Alert");
-            inputNotDoubleAlert.setContentText("You're inputs are wrongly formatted, can't let you do this edit");
-            inputNotDoubleAlert.showAndWait();
-            clearFields();
-        } else {
-            inputNotDoubleAlert.setAlertType(Alert.AlertType.INFORMATION);
-            inputNotDoubleAlert.setContentText("You havn't chosen a risk to edit");
-            inputNotDoubleAlert.show();
+        if (!nameIsUnique()) {
+            alertMessage += "Risk name isn't unique\n";
+            throwAlarm = 0;
         }
+
+        if (!InputValidation.isDouble(riskCostField)) {
+            alertMessage += "Risk cost field can only contain numbers\n";
+            throwAlarm = 0;
+        }
+
+        if (!InputValidation.isDouble(riskProbabilityField)) {
+            alertMessage += "Probability field can only contain numbers\n";
+            throwAlarm = 0;
+        }
+
+        // checks if alarm needs to pop up
+        if (throwAlarm == 0) {
+            alert.setHeaderText("Error with input(s)..");
+            alert.setContentText(alertMessage);
+            alert.show();
+        }
+        return throwAlarm != 0;
     }
 
     private void clearFields() {
