@@ -48,7 +48,7 @@ public class RiskViewController {
     @FXML
     protected void addRisk() {
         ObservableList<Risk> tableData = tableView.getItems();
-        if (checkFields()) {
+        if (InputValidation.checkFields(this)) {
             tableData.add(new Risk(riskNameField.getText(), Double.parseDouble(riskCostField.getText()),
                     Double.parseDouble(riskProbabilityField.getText())));
             clearFields();
@@ -89,62 +89,40 @@ public class RiskViewController {
 
     @FXML
     protected void loadDescription() {
-        try {
-            Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
-            riskPane.setText(selectedRisk.getName());
-            summaryTextArea.setText(selectedRisk.getString());
-        } catch (Exception e) { }
+        Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedRisk == null) return;
+        riskPane.setText(selectedRisk.getName());
+        summaryTextArea.setText(selectedRisk.getString());
     }
+
     @FXML
     protected void resetDescription() {
         riskPane.setText("Risk Summary");
         summaryTextArea.setText("Choose a risk");
     }
 
-
-    private boolean nameIsUnique() {
-        for (Risk r:tableView.getItems()
-        ) {
-            if (r.getName().equals(riskNameField.getText())) {
-                return false;
-            }
-        }
-        return true;
+    public TextField getRiskNameField() {
+        return riskNameField;
     }
 
-
-    //TODO Move checkFields and is Unique method into InputValidation class. Need getters for private fields.
-    private boolean checkFields() {
-        String alertMessage = "";
-        int throwAlarm = 1;
-
-        if (!InputValidation.isOnlyLetters(riskNameField)) {
-            alertMessage += "Risk name field can only contain letters\n";
-            throwAlarm = 0;
-        }
-        if (!nameIsUnique()) {
-            alertMessage += "Risk name isn't unique\n";
-            throwAlarm = 0;
-        }
-
-        if (!InputValidation.isDouble(riskCostField)) {
-            alertMessage += "Risk cost field can only contain numbers\n";
-            throwAlarm = 0;
-        }
-
-        if (!InputValidation.isDouble(riskProbabilityField)) {
-            alertMessage += "Probability field can only contain numbers\n";
-            throwAlarm = 0;
-        }
-
-        // checks if alarm needs to pop up
-        if (throwAlarm == 0) {
-            alert.setHeaderText("Error with input(s)..");
-            alert.setContentText(alertMessage);
-            alert.show();
-        }
-        return throwAlarm != 0;
+    public TextField getRiskCostField() {
+        return riskCostField;
     }
+
+    public TextField getRiskProbabilityField() {
+        return riskProbabilityField;
+    }
+
+    public TableView<Risk> getTableView() {
+        return tableView;
+    }
+
+    public Alert getAlert() {
+        return alert;
+    }
+//TODO Move checkFields and is Unique method into InputValidation class. Need getters for private fields.
+
 
     private void clearFields() {
         riskNameField.setText("");

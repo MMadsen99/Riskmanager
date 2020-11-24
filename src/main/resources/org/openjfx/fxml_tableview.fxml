@@ -58,7 +58,7 @@
       <TitledPane fx:id="riskPane" animated="false" layoutX="42.0" layoutY="55.0" prefHeight="270.0" prefWidth="202.0" text="Risk Summary">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            <TextArea fx:id="summaryTextArea" text="Chose a risk" />
+            <TextArea fx:id="summaryTextArea" text="Choose a risk" />
         </content>
       </TitledPane>
       <Button fx:id="edit" layoutX="23.0" layoutY="337.0" mnemonicParsing="false" onAction="#editRisk" text="Edit risk" />
