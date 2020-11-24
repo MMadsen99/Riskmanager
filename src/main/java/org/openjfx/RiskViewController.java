@@ -25,14 +25,11 @@ public class RiskViewController {
     @FXML private final Alert alert = new Alert(Alert.AlertType.ERROR);
     @FXML private final Alert editConfirm = new Alert(Alert.AlertType.CONFIRMATION);
 
-
-    ///Not working yet
     @FXML
     protected void enterPressed(KeyEvent e) {
         if(e.getCode() == KeyCode.ENTER) {
             addRisk();
         }
-        deletePressed(e);
     }
 
     @FXML
