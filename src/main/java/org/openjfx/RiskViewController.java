@@ -2,13 +2,18 @@ package org.openjfx;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.openjfx.inputvalidation.InputValidation;
 import org.openjfx.model.Risk;
 
-public class RiskViewController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class RiskViewController implements Initializable {
 
 
     ///risk table, and the input fields
@@ -16,7 +21,6 @@ public class RiskViewController {
     @FXML private TextField riskNameField;
     @FXML private TextField riskCostField;
     @FXML private TextField riskProbabilityField;
-
     //risk description pane
     @FXML private TitledPane riskPane;
     @FXML private TextArea summaryTextArea;
@@ -25,6 +29,13 @@ public class RiskViewController {
     @FXML private final Alert alert = new Alert(Alert.AlertType.ERROR);
     @FXML private final Alert editConfirm = new Alert(Alert.AlertType.CONFIRMATION);
 
+    @FXML protected void saveProject() throws IOException {
+        App.saveProject(this);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        App.project.getRisks().forEach(i-> tableView.getItems().add(i));
+    }
     @FXML
     protected void enterPressed(KeyEvent e) {
         if(e.getCode() == KeyCode.ENTER) {
@@ -46,10 +57,18 @@ public class RiskViewController {
     protected void addRisk() {
         ObservableList<Risk> tableData = tableView.getItems();
         if (InputValidation.checkFields(this)) {
-            tableData.add(new Risk(riskNameField.getText(), Double.parseDouble(riskCostField.getText()),
-                    Double.parseDouble(riskProbabilityField.getText())));
+            tableData.add(new Risk(riskNameField.getText()));
             clearFields();
+
+        } else {
+
+            if (InputValidation.checkFields(this)) {
+                tableData.add(new Risk(riskNameField.getText(), Double.parseDouble(riskCostField.getText()),
+                        Double.parseDouble(riskProbabilityField.getText())));
+                clearFields();
+            }
         }
+
     }
 
     @FXML
@@ -69,9 +88,7 @@ public class RiskViewController {
         Risk selectedRisk = tableView.getSelectionModel().getSelectedItem();
 
         if (selectedRisk != null) {
-
             editConfirm.setContentText("Are you sure you want to edit the risk called " + "'" + selectedRisk.getName() + "'");
-
             if(editConfirm.showAndWait().get() == ButtonType.OK) {
                 tableView.getItems().remove(selectedRisk);
                 addRisk();
@@ -126,5 +143,6 @@ public class RiskViewController {
         riskCostField.setText("");
         riskProbabilityField.setText("");
     }
+
 
 }
