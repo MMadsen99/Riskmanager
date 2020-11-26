@@ -3,10 +3,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 
-public class Risk extends Project {
+public class Risk {
 
 
-    private final SimpleStringProperty name = new SimpleStringProperty("");
+    private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleDoubleProperty cost = new SimpleDoubleProperty();
     private final SimpleDoubleProperty probability = new SimpleDoubleProperty();
     private final SimpleDoubleProperty priority = new SimpleDoubleProperty();
@@ -37,7 +37,8 @@ public class Risk extends Project {
         name.set(riskName);
     }
 
-    public String getName() { return name.get(); }
+    public String getName() {
+        return name.get();}
 
     private void setCost(Double costValue) {
         cost.set(costValue);

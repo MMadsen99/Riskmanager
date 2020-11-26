@@ -7,14 +7,17 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.openjfx.inputvalidation.InputValidation;
+import org.openjfx.model.Project;
 import org.openjfx.model.Risk;
-
+import org.openjfx.persistence.LoaderSaver;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RiskViewController implements Initializable {
 
+    LoaderSaver loaderSaver = new LoaderSaver();
+    Project project;
 
     ///risk table, and the input fields
     @FXML private TableView<Risk> tableView;
@@ -25,16 +28,25 @@ public class RiskViewController implements Initializable {
     @FXML private TitledPane riskPane;
     @FXML private TextArea summaryTextArea;
 
+    @FXML private Label projectNameLabel;
+
     //Popup alerts
     @FXML private final Alert alert = new Alert(Alert.AlertType.ERROR);
     @FXML private final Alert editConfirm = new Alert(Alert.AlertType.CONFIRMATION);
 
+    @FXML
+    private void switchToPrimary() throws IOException {
+        App.setRoot("primary");
+    }
+
     @FXML protected void saveProject() throws IOException {
-        App.saveProject(this);
+        loaderSaver.saveProject(this);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        App.project.getRisks().forEach(i-> tableView.getItems().add(i));
+        loaderSaver.loadProject();
+        loaderSaver.getProject().getRisks().forEach(i-> tableView.getItems().add(i));
+        setProjectNameLabel(loaderSaver.getLoadedProjectName());
     }
     @FXML
     protected void enterPressed(KeyEvent e) {
@@ -55,11 +67,12 @@ public class RiskViewController implements Initializable {
 
     @FXML
     protected void addRisk() {
+
         ObservableList<Risk> tableData = tableView.getItems();
         if (InputValidation.checkFields(this)) {
             tableData.add(new Risk(riskNameField.getText()));
-            clearFields();
 
+            clearFields();
         } else {
 
             if (InputValidation.checkFields(this)) {
@@ -108,6 +121,7 @@ public class RiskViewController implements Initializable {
         if (selectedRisk == null) return;
         riskPane.setText(selectedRisk.getName());
         summaryTextArea.setText(selectedRisk.getString());
+
     }
 
     @FXML
@@ -135,7 +149,6 @@ public class RiskViewController implements Initializable {
     public Alert getAlert() {
         return alert;
     }
-//TODO Move checkFields and is Unique method into InputValidation class. Need getters for private fields.
 
 
     private void clearFields() {
@@ -144,5 +157,9 @@ public class RiskViewController implements Initializable {
         riskProbabilityField.setText("");
     }
 
+    public void setProjectNameLabel(String projectName) {
 
+        projectNameLabel.setText(projectName);
+
+    }
 }
