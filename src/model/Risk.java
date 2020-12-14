@@ -19,15 +19,17 @@ public class Risk {
     public Risk(String riskName, double probability, double consequence, String description){
         this.riskName = riskName;
         this.consequence = consequence;
-        this.priority = probability;
+        this.probability = probability;
         this.description = description;
+        this.priority = consequence*probability;
     }
-
-
 
     //Methods
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active){
         cm =  new CounterMeasure(probabilityImpact,consequenceImpact,description,active);
+        if(cm.isActive() == true){
+            updatePriority();
+        }
     }
 
     public void activateCounterMeasure(boolean wantedState){
@@ -35,6 +37,13 @@ public class Risk {
     }
 
     public void updatePriority(){
+        if(cm ==null ){
+            return;
+        }else{
+            this.revisedConsequence = cm.getConsequenceImpact();
+            this.revisedProbability = cm.getProbabilityImpact();
+            this.priority = revisedConsequence*revisedProbability;
+        }
     }
 
 
@@ -43,6 +52,7 @@ public class Risk {
         this.probability = probability;
         this.consequence = consequence;
         this.riskName = riskName;
+        this.priority = consequence*probability;
     }
 
     public void removeCounterMeasure(){
