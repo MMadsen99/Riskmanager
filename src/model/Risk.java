@@ -1,7 +1,4 @@
 package model;
-
-package model;
-
 import java.io.Serializable;
 
 public class Risk implements Serializable {
