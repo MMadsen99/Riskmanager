@@ -1,6 +1,16 @@
 package model;
 
-public class Risk {
+import java.io.Serializable;
+
+public class Risk implements Serializable {
+
+    static int count = 0;
+
+    int id;
+
+    public int getID() {
+        return id;
+    }
 
 
     //Datafield (variables)
@@ -21,6 +31,7 @@ public class Risk {
         this.probability = probability;
         this.description = description;
         this.priority = consequence * probability;
+        this.id = count++;
     }
 
     //Methods
@@ -42,19 +53,21 @@ public class Risk {
         if (cm == null) {
             return;
         } else {
-            this.revisedConsequence = cm.getConsequenceImpact();
-            this.revisedProbability = cm.getProbabilityImpact();
+            this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
+            this.revisedProbability = cm.getProbabilityImpact() * this.probability;
             this.priority = revisedConsequence * revisedProbability;
         }
     }
 
 
     public void editRisk(String riskName, double probability, double consequence, String description) {
+
         this.description = description;
         this.probability = probability;
         this.consequence = consequence;
         this.riskName = riskName;
         this.priority = consequence * probability;
+        updatePriority();
     }
 
     public void removeCounterMeasure() {
