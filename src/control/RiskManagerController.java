@@ -54,6 +54,10 @@ public class RiskManagerController {
         this.riskTableFX.Update(this);
     }
 
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active){
+        getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
+    }
+
     public static void main(String[] args) throws NoProjectException {
         RiskManagerController riskManagerController = new RiskManagerController();
         riskManagerController.createProject("Mike");
@@ -64,7 +68,10 @@ public class RiskManagerController {
 
         riskManagerController.riskTableFX.getProjectsFXES().forEach(i -> System.out.println(i.getId() + " " + i.getName()));
         riskManagerController.addRisk("project two risk", 21, 23, "oh im here");
-        riskManagerController.setOpenProject(2);
         riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getID() + " " +i.getRiskName()));
+
+        riskManagerController.addCounterMeasure(0, 0.5, 0.5, "oh no", true);
+        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getID() + " " +i.getRevisedConsequence()));
+
     }
 }

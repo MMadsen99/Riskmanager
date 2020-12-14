@@ -26,11 +26,11 @@ public class Project {
         return projectName;
     }
 
-    //Add CounterMeasure
-    public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
-
-
+    public int getProjectId() {
+        return this.id;
     }
+
+
     //Add risk
     public void addRisk(String riskName, double probability, double consequence, String description){
 
@@ -50,21 +50,29 @@ public class Project {
 
         return rt;
 
+    }
+
+    //Add CounterMeasure
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) {
+        Risk riskToCounter = null;
+        for (Risk risk: getRiskTable().getRisks()) {
+            if (risk.getID() == riskID) {
+                riskToCounter = risk;
+            }
+        }
+        assert riskToCounter != null;
+        riskToCounter.addCounterMeasure(probabilityImpact, consequenceImpact, description, active );
 
     }
     //Countermeasure that is activate
     public void activateCounterMeasure(int riskID){
 
         Risk risk = (Risk) getRiskTable().getRisks().stream().filter(i -> i.getID() == riskID);
-
-
+        risk.activateCounterMeasure(true);
     }
     //Removed countermeasure
-    public void removeCounterMeasure(){
-
-    }
-
-    public int getProjectId() {
-        return this.id;
+    public void removeCounterMeasure(int riskID){
+        Risk risk = (Risk) getRiskTable().getRisks().stream().filter(i -> i.getID() == riskID);
+        getRiskTable().getRisks().remove(risk);
     }
 }
