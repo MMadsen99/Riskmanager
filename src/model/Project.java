@@ -35,11 +35,19 @@ public class Project {
     }
 
     //Edit risk
-    public void editRisk(String riskName, double probability, double consequence, String description){
+    public void editRisk(String riskName, double probability, double consequence, String description) {
 
     }
-    //Countermeasure that is active
-    public void activeCounterMeasure(){
+    public RiskTable getRiskTable(){
+
+        return rt;
+
+
+    }
+    //Countermeasure that is activate
+    public void activateCounterMeasure(){
+
+        getRiskTable().getRisks;
 
 
     }

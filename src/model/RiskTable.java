@@ -17,7 +17,7 @@ public class RiskTable {
         return risks;
     }
 
-    public void addRisk(String riskName){
+    public void addRisk(String name, double probability, double consequence, String riskName){
         getRisks().add(new Risk(riskName));
     }
 
