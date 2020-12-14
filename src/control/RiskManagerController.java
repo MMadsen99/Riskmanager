@@ -64,7 +64,7 @@ public class RiskManagerController {
 
         riskManagerController.riskTableFX.getProjectsFXES().forEach(i -> System.out.println(i.getId() + " " + i.getName()));
         riskManagerController.addRisk("project two risk", 21, 23, "oh im here");
-        riskManagerController.setOpenProject(1);
+        riskManagerController.setOpenProject(2);
         riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getID() + " " +i.getRiskName()));
     }
 }
