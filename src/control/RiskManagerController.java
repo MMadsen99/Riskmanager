@@ -54,8 +54,9 @@ public class RiskManagerController {
         this.riskTableFX.Update(this);
     }
 
-    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active){
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
+        this.riskTableFX.Update(this);
     }
 
     public static void main(String[] args) throws NoProjectException {
