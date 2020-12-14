@@ -26,6 +26,15 @@ public class Risk {
 
 
     //Methods
+    public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active){
+        cm =  new CounterMeasure(probabilityImpact,consequenceImpact,description,active);
+    }
+
+    public void activateCounterMeasure(boolean wantedState){
+
+
+    }
+
 
 
 
