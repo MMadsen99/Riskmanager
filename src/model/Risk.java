@@ -14,48 +14,50 @@ public class Risk {
     private CounterMeasure cm;
 
 
-
     // Constructor
-    public Risk(String riskName, double probability, double consequence, String description){
+    public Risk(String riskName, double probability, double consequence, String description) {
         this.riskName = riskName;
         this.consequence = consequence;
         this.probability = probability;
         this.description = description;
-        this.priority = consequence*probability;
+        this.priority = consequence * probability;
     }
 
     //Methods
-    public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active){
-        cm =  new CounterMeasure(probabilityImpact,consequenceImpact,description,active);
-        if(cm.isActive() == true){
+    public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
+        cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
+        if (cm.isActive()) {
             updatePriority();
         }
     }
 
-    public void activateCounterMeasure(boolean wantedState){
-    cm.activeCounterMeasure(wantedState);
+    public void activateCounterMeasure(boolean wantedState) {
+        cm.activeCounterMeasure(wantedState);
+        if (cm.isActive()) {
+            updatePriority();
+        }
     }
 
-    public void updatePriority(){
-        if(cm ==null ){
+    public void updatePriority() {
+        if (cm == null) {
             return;
-        }else{
+        } else {
             this.revisedConsequence = cm.getConsequenceImpact();
             this.revisedProbability = cm.getProbabilityImpact();
-            this.priority = revisedConsequence*revisedProbability;
+            this.priority = revisedConsequence * revisedProbability;
         }
     }
 
 
-    public void editRisk(String riskName, double probability, double consequence, String description){
+    public void editRisk(String riskName, double probability, double consequence, String description) {
         this.description = description;
         this.probability = probability;
         this.consequence = consequence;
         this.riskName = riskName;
-        this.priority = consequence*probability;
+        this.priority = consequence * probability;
     }
 
-    public void removeCounterMeasure(){
+    public void removeCounterMeasure() {
         this.cm = null;
     }
 
