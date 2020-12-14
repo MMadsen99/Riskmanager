@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 public class Risk implements Serializable {
 
-    static int count = 0;
 
-    int id;
 
-    public int getID() {
-        return id;
-    }
+
+
+
 
 
     //Datafield (variables)
@@ -22,6 +20,8 @@ public class Risk implements Serializable {
     private double revisedProbability;
     private double revisedConsequence;
     private CounterMeasure cm;
+    static int count = 0;
+    int id;
 
 
     // Constructor
@@ -106,6 +106,10 @@ public class Risk implements Serializable {
 
     public CounterMeasure getCm() {
         return cm;
+    }
+
+    public int getID() {
+        return id;
     }
 
 

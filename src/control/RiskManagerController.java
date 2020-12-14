@@ -1,5 +1,4 @@
 package control;
-
 import exceptions.NoProjectException;
 import model.Project;
 import model.ProjectTable;
