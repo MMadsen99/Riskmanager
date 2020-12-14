@@ -51,7 +51,7 @@ public class Project {
     //Countermeasure that is activate
     public void activateCounterMeasure(){
 
-        getRiskTable().getRisks;
+        getRiskTable().getRisks();
 
 
     }
