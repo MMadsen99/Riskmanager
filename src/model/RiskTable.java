@@ -8,16 +8,12 @@ public class RiskTable {
     ArrayList<Risk> risks = new ArrayList<>();
 
 
-    public RiskTable(){
-        risks.add(new Risk("RiskName"));
-    }
-
     public ArrayList<Risk> getRisks(){
         return risks;
     }
 
-    public void addRisk(String name, double probability, double consequence, String riskName){
-        getRisks().add(new Risk(riskName));
+    public void addRisk(String riskName, double probability, double consequence, String description){
+        getRisks().add(new Risk(riskName, probability, consequence, description));
     }
 
     public void deleteRisk(int riskId) throws NoRiskException {
