@@ -1,3 +1,5 @@
+package model;
+
 import model.CounterMeasure;
 
 import java.io.Serializable;
