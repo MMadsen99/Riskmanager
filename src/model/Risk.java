@@ -1,6 +1,6 @@
 package model;
 
-import model.CounterMeasure;
+package model;
 
 import java.io.Serializable;
 
@@ -20,7 +20,7 @@ public class Risk implements Serializable {
 
 
     // Constructor
-    public Risk(String riskName, double probability, double consequence, String description) {
+    public Risk(String riskName) {
         this.riskName = riskName;
         this.consequence = consequence;
         this.probability = probability;

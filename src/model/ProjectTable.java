@@ -39,7 +39,7 @@ public class ProjectTable implements Serializable {
     public Project getProject(int projectID) throws NoProjectException {
 
         for (Project project:getProjects()) {
-            if (project.getId() == projectID) {
+            if (project.getID() == projectID) {
                 return project;
             }
         } throw new NoProjectException("Project was not found in the project list");

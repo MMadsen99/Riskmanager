@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class RiskTable {
     public Risk getRisk(int riskId) throws NoRiskException {
 
         for (Risk risk:getRisks()) {
-            if (risk.getid() == riskId) {
+            if (risk.getID() == riskId) {
                 return risk;
             }
         } throw new NoRiskException("Project not found");
