@@ -8,18 +8,12 @@ import java.util.ArrayList;
 
 public class RiskManagerController {
 
+    // Data fields
     Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
-
     RiskTableFX riskTableFX = new RiskTableFX();
-    public ProjectTable getProjectTable() {
-        return projectTable;
-    }
 
-    public void setProjectTable(ProjectTable projectTable) {
-        this.projectTable = projectTable;
-    }
-
+    // Methods
     public void createProject(String projectName) throws NoProjectException {
         projectTable.createProject(projectName);
         this.riskTableFX.Update(this);
@@ -37,6 +31,25 @@ public class RiskManagerController {
         this.riskTableFX.Update(this);
     }
 
+
+    public void addRisk(String name, double probability, double cost, String description) throws NoProjectException {
+        this.openProject.addRisk(name, probability, cost, description);
+        this.riskTableFX.Update(this);
+    }
+
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException {
+        getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
+        this.riskTableFX.Update(this);
+    }
+    // Getters and Setters
+    public ProjectTable getProjectTable() {
+        return projectTable;
+    }
+
+    public void setProjectTable(ProjectTable projectTable) {
+        this.projectTable = projectTable;
+    }
+
     public void setOpenProject(int projectID) throws NoProjectException {
         try {
             this.openProject = projectTable.getProject(projectID);
@@ -49,16 +62,6 @@ public class RiskManagerController {
     public Project getOpenProject() {
         return this.openProject;
     }
-    public void addRisk(String name, double probability, double cost, String description) throws NoProjectException {
-        this.openProject.addRisk(name, probability, cost, description);
-        this.riskTableFX.Update(this);
-    }
-
-    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException {
-        getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
-        this.riskTableFX.Update(this);
-    }
-
     public static void main(String[] args) throws NoProjectException {
         RiskManagerController riskManagerController = new RiskManagerController();
         riskManagerController.createProject("Mike");

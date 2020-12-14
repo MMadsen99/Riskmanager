@@ -8,6 +8,8 @@ import java.util.ArrayList;
 //mike
 public class ProjectTable implements Serializable {
 
+
+    //Data fields
     ArrayList<Project> projects = new ArrayList<>();
 
     //Constructor, sørger for at en ny session starter med mindst et projekt.
@@ -29,13 +31,12 @@ public class ProjectTable implements Serializable {
         this.projects = new ArrayList<>();
     }
 
-
+    // Getters and Setters
     public ArrayList<Project> getProjects() {
 
         return projects;
     }
 
-    //Søger efter projekt med ID der matcher, og returnerer dette
     public Project getProject(int projectID) throws NoProjectException {
 
         for (Project project:getProjects()) {
@@ -45,5 +46,4 @@ public class ProjectTable implements Serializable {
         } throw new NoProjectException("Project was not found in the project list");
 
     }
-
 }

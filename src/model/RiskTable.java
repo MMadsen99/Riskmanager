@@ -5,12 +5,11 @@ import exceptions.NoRiskException;
 import java.util.ArrayList;
 
 public class RiskTable {
+
+    //Data fields
     ArrayList<Risk> risks = new ArrayList<>();
 
 
-    public ArrayList<Risk> getRisks(){
-        return risks;
-    }
 
     public void addRisk(String riskName, double probability, double consequence, String description){
         getRisks().add(new Risk(riskName, probability, consequence, description));
@@ -20,6 +19,9 @@ public class RiskTable {
         getRisks().remove(getRisk(riskId));
     }
 
+    public ArrayList<Risk> getRisks(){
+        return risks;
+    }
     public Risk getRisk(int riskId) throws NoRiskException {
 
         for (Risk risk:getRisks()) {
