@@ -3,7 +3,7 @@ package model;
 public class CounterMeasure {
  
   
-      // DataFields ( Variables)
+    // DataFields ( Variables)
     private double probabilityImpact = 0;
     private double consequenceImpact = 0;
     private String description;
