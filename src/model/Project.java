@@ -18,6 +18,10 @@ public class Project {
         this.projectName = projectName;
     }
 
+    public String getProjectName() {
+        return projectName;
+    }
+
     //Add CounterMeasure
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
 
@@ -56,6 +60,8 @@ public class Project {
 
 
     }
+
+
 
 
 }
