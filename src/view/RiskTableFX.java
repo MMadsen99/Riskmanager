@@ -42,7 +42,7 @@ public class RiskTableFX implements Observer{
 
     private void updateProjects(ArrayList<Project> projects) {
         for (Project project: projects) {
-            projectsFXES.add(new ProjectsFX(project.getId(), project.getName()));
+            projectsFXES.add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }
     }
 }

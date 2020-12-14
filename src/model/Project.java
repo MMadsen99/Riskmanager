@@ -2,6 +2,9 @@ package model;
 
 public class Project {
 
+    static int count= 0;
+    public int id;
+
 
     //Create riskTable
     RiskTable rt = new RiskTable();
@@ -11,6 +14,7 @@ public class Project {
 
     //Constructor for projectName
     public Project(String projectName) {
+        this.id = count++;
         this.projectName = projectName;
     }
     //Set projectName
@@ -39,7 +43,7 @@ public class Project {
     }
 
     //Edit risk
-    public void editRisk(String riskName, double probability, double consequence, String description) {
+    public void editRisk(String riskName, double probability, double consequence, String description){
 
     }
     public RiskTable getRiskTable(){
@@ -49,19 +53,18 @@ public class Project {
 
     }
     //Countermeasure that is activate
-    public void activateCounterMeasure(){
+    public void activateCounterMeasure(int riskID){
 
-        getRiskTable().getRisks();
+        Risk risk = (Risk) getRiskTable().getRisks().stream().filter(i -> i.getID() == riskID);
 
 
     }
     //Removed countermeasure
     public void removeCounterMeasure(){
 
-
     }
 
-
-
-
+    public int getProjectId() {
+        return this.id;
+    }
 }
