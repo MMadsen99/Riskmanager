@@ -54,7 +54,7 @@ public class Risk implements Serializable {
         this.cm = null;
         this.revisedConsequence = Double.NaN;
         this.revisedProbability = Double.NaN;
-        this.priority = consequence * probability;
+        updateRisk();
     }
 
     public void updateRisk() {
