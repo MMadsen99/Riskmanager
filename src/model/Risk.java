@@ -28,6 +28,16 @@ public class Risk implements Serializable {
     }
 
     //Methods
+    public void editRisk(String riskName, double probability, double consequence, String description) {
+
+        this.description = description;
+        this.probability = probability;
+        this.consequence = consequence;
+        this.riskName = riskName;
+        this.priority = consequence * probability;
+        updatePriority();
+    }
+
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
         cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
         if (cm.isActive()) {
@@ -42,6 +52,10 @@ public class Risk implements Serializable {
         }
     }
 
+    public void removeCounterMeasure() {
+        this.cm = null;
+    }
+
     public void updatePriority() {
         if (cm == null) {
             return;
@@ -50,21 +64,6 @@ public class Risk implements Serializable {
             this.revisedProbability = cm.getProbabilityImpact() * this.probability;
             this.priority = revisedConsequence * revisedProbability;
         }
-    }
-
-
-    public void editRisk(String riskName, double probability, double consequence, String description) {
-
-        this.description = description;
-        this.probability = probability;
-        this.consequence = consequence;
-        this.riskName = riskName;
-        this.priority = consequence * probability;
-        updatePriority();
-    }
-
-    public void removeCounterMeasure() {
-        this.cm = null;
     }
 
 
