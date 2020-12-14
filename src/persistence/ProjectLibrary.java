@@ -2,7 +2,6 @@ package persistence;
 
 import model.ProjectTable;
 import control.RiskManagerController;
-
 import java.io.*;
 
 public class ProjectLibrary {

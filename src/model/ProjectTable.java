@@ -10,26 +10,32 @@ public class ProjectTable implements Serializable {
 
     ArrayList<Project> projects = new ArrayList<>();
 
+    //Constructor, sørger for at en ny session starter med mindst et projekt.
     public ProjectTable() {
         projects.add(new Project("unnamed"));
     }
 
-    public int createProject(String projectName) {
+    //Skaber og tilfølger et nyt projekt til listen over projekter.
+    public void createProject(String projectName) {
         getProjects().add(new Project(projectName));
-        return  getProjects().get(projects.size()-1).getId();
     }
+
+    //Sletter projekt
     public void deleteProject(int projectID) throws NoProjectException {
         getProjects().remove(getProject(projectID));
     }
-
+    //Gør listen af projekter tom
     public void clearProjects() {
         this.projects = new ArrayList<>();
     }
+
 
     public ArrayList<Project> getProjects() {
 
         return projects;
     }
+
+    //Søger efter projekt med ID der matcher, og returnerer dette
     public Project getProject(int projectID) throws NoProjectException {
 
         for (Project project:getProjects()) {
