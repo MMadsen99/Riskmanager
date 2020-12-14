@@ -31,14 +31,60 @@ public class Risk {
     }
 
     public void activateCounterMeasure(boolean wantedState){
+    cm.activeCounterMeasure(wantedState);
+    }
 
-
+    public void updatePriority(){
     }
 
 
+    public void editRisk(String riskName, double probability, double consequence, String description){
+        this.description = description;
+        this.probability = probability;
+        this.consequence = consequence;
+        this.riskName = riskName;
+    }
+
+    public void removeCounterMeasure(){
+        this.cm = null;
+    }
 
 
+    // Getters and Setters
+    public String getRiskName() {
+        return riskName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getConsequence() {
+        return consequence;
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public double getPriority() {
+        return priority;
+    }
+
+    public double getRevisedConsequence() {
+        return revisedConsequence;
+    }
+
+    public double getRevisedProbability() {
+        return revisedProbability;
+    }
+
+    public CounterMeasure getCm() {
+        return cm;
+    }
 
 
-  
 }
+
+
+
