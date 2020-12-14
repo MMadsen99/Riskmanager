@@ -16,7 +16,7 @@ public class Risk {
 
 
     // Constructor
-    public Risk(String riskName, double probability, double consequence, String description){
+    public Risk(String name){
         this.riskName = riskName;
         this.consequence = consequence;
         this.priority = probability;
