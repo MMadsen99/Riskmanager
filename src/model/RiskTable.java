@@ -2,9 +2,10 @@ package model;
 
 import exceptions.NoRiskException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RiskTable {
+public class RiskTable implements Serializable {
 
     //Data fields
     ArrayList<Risk> risks = new ArrayList<>();
