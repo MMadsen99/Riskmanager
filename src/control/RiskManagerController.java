@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import model.Project;
 import model.ProjectTable;
+import persistence.ProjectLibrary;
 import view.RiskTableFX;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class RiskManagerController {
     }
 
     @FXML
-    public void loadProject(ActionEvent actionEvent) {
-        System.out.println("hhi");
+    public void loadProject() {
+        ProjectLibrary.loadProjects(this);
     }
 
     public void deleteProject(int projectID) throws NoProjectException {
