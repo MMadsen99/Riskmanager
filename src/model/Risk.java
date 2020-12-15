@@ -17,10 +17,10 @@ public class Risk implements Serializable {
 
 
     // Constructor
-    public Risk(String name, double probability, double consequence, String riskName) {
+    public Risk(String description, double probability, double consequence, String riskName) {
         this.riskName = riskName;
-        this.consequence = this.consequence;
-        this.probability = this.probability;
+        this.consequence = consequence;
+        this.probability = probability;
         this.description = description;
         this.priority = this.consequence * this.probability;
         this.id = count++;
