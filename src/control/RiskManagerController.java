@@ -2,6 +2,9 @@ package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import model.Project;
 import model.ProjectTable;
 import view.RiskTableFX;
@@ -9,6 +12,10 @@ import view.RiskTableFX;
 import java.util.ArrayList;
 
 public class RiskManagerController {
+
+    @FXML
+    private Button loadProject;
+
 
     // Data fields
     Project openProject = new Project("unnamed");
@@ -20,12 +27,17 @@ public class RiskManagerController {
         projectTable.createProject(projectName);
         this.riskTableFX.Update(this);
     }
-
+    @FXML
     public void loadProjects(ArrayList<Project> projects) {
         projectTable = new ProjectTable();
         for (Project project: projects) {
             projectTable.createProject(project.getProjectName());
         }
+    }
+
+    @FXML
+    public void loadProject(ActionEvent actionEvent) {
+        System.out.println("hhi");
     }
 
     public void deleteProject(int projectID) throws NoProjectException {
@@ -80,4 +92,6 @@ public class RiskManagerController {
 
         riskManagerController.getOpenProject().getRiskTable().getRisks().forEach(i -> System.out.println(i.getDescription()));
     }
+
+
 }
