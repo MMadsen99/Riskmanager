@@ -1,9 +1,9 @@
 package control;
+
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 import model.Project;
 import model.ProjectTable;
-import persistence.ProjectLibrary;
 import view.RiskTableFX;
 
 import java.util.ArrayList;
@@ -74,15 +74,10 @@ public class RiskManagerController {
     public static void main(String[] args) throws NoProjectException, NoRiskException {
         RiskManagerController riskManagerController = new RiskManagerController();
 
-        riskManagerController.createProject("Projekt 1");
-        riskManagerController.setOpenProject(1);
-        riskManagerController.addRisk("Ingen penge", 0.10, 100, "bla");
-        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
-        riskManagerController.addCounterMeasure(0, 0.5, 0.5, "blabla", true);
-        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
-        riskManagerController.activateCounterMeasure(0, false);
-        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
+        riskManagerController.createProject("name");
+        riskManagerController.setOpenProject(0);
+        riskManagerController.addRisk("mike", 2, 2, "mike");
 
-
+        riskManagerController.getOpenProject().getRiskTable().getRisks().forEach(i -> System.out.println(i.getDescription()));
     }
 }

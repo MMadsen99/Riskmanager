@@ -1,10 +1,17 @@
 package persistence;
 
+import javafx.stage.FileChooser;
 import model.ProjectTable;
 import control.RiskManagerController;
+import sample.Main;
+
 import java.io.*;
 
-public class ProjectLibrary {
+
+
+public class ProjectLibrary  {
+
+    static FileChooser fileChooser = new FileChooser();
 
 
     public static void saveProjects(RiskManagerController riskManagerController) {
@@ -23,7 +30,9 @@ public class ProjectLibrary {
         try
         {
             // Reading the object from a file
-            FileInputStream file = new FileInputStream("src/persistence/projects.file");
+            File projectFile = fileChooser.showOpenDialog(Main.getScene().getWindow());
+
+            FileInputStream file = new FileInputStream(projectFile);
 
             ObjectInputStream in = new ObjectInputStream(file);
 
