@@ -5,13 +5,16 @@ public class RiskFX {
     int id;
     String name;
     double probability;
-    double cost;
+    double consequence;
+    double priority;
 
-    public RiskFX(int id, String name, double probability, double cost) {
+
+    public RiskFX(int id, String name, double probability, double consequence, double priority) {
         this.id = id;
         this.name = name;
         this.probability = probability;
-        this.cost = cost;
+        this.consequence = consequence;
+        this.priority = priority;
     }
 
     public int getId() {
@@ -20,5 +23,17 @@ public class RiskFX {
 
     public String getName() {
         return name;
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public double getConsequence() {
+        return consequence;
+    }
+
+    public double getPriority() {
+        return priority;
     }
 }

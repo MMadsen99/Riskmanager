@@ -8,13 +8,12 @@ import java.util.ArrayList;
 
 public class ProjectTableFX implements Observer {
 
-    ArrayList<ProjectsFX> projectsFX;
 
     public ArrayList<ProjectsFX> getProjectsFXES() {
-        return projectsFX;
+        return projectsFXES;
     }
 
-
+    ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
     @Override
     public void Update(RiskManagerController controller) throws NoProjectException {
 
@@ -23,7 +22,7 @@ public class ProjectTableFX implements Observer {
     }
 
     private void updateProjects(ArrayList<Project> projects) {
-        ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
+         projectsFXES = new ArrayList<>();
         for (Project project: projects) {
             projectsFXES.add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }

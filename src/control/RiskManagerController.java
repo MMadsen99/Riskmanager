@@ -2,58 +2,61 @@ package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import model.Project;
 import model.ProjectTable;
 import persistence.ProjectLibrary;
 import view.ProjectTableFX;
 import view.ProjectsFX;
+import view.RiskFX;
 import view.RiskTableFX;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class RiskManagerController {
+public class RiskManagerController implements Initializable {
+
 
     @FXML
-    private Button loadProject;
+    private ListView<ProjectsFX> projectFXListView;
 
-    @FXML ListView projectListView;
-
-
+    @FXML
+    public TableView<RiskFX> riskFXTableView;
     // Data fields
     Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
 
+
     // Methods
-    public void createProject(String projectName) throws NoProjectException {
-        projectTable.createProject(projectName);
-        this.riskTableFX.Update(this);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
+        getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
+        projectFXListView.getItems().addAll(projectsFXES);
+
+        riskFXTableView.getItems().add(new RiskFX(1, "mike", 2, 2, 2));
+
     }
     @FXML
-    public void loadProjects(ArrayList<Project> projects) {
-        projectTable = new ProjectTable();
-        for (Project project: projects) {
-            projectTable.createProject(project.getProjectName());
-        }
+    public void createProject() throws NoProjectException {
+        projectTable.createProject("mike");
+        projectFXListView.getItems().add(new ProjectsFX(1, "hi"));
     }
+
     @FXML
-    public void loadProject() throws NoProjectException {
+    public void loadProjects() throws NoProjectException {
         ProjectLibrary.loadProjects(this);
+        projectFXListView.getItems().clear();
         ArrayList<Project> projects = getProjectTable().getProjects();
-
         for (Project project:projects) {
-            projectListView.getItems().add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
+            projectFXListView.getItems().add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }
-
+        this.riskTableFX.Update(this);
     }
 
     public void deleteProject(int projectID) throws NoProjectException {
@@ -91,7 +94,7 @@ public class RiskManagerController {
         try {
             this.openProject = projectTable.getProject(projectID);
         } catch (Exception e) {
-
+            System.out.println("No project with this ID");
         }
         this.riskTableFX.Update(this);
     }
@@ -101,10 +104,6 @@ public class RiskManagerController {
     }
     public static void main(String[] args) throws NoProjectException, NoRiskException {
         RiskManagerController riskManagerController = new RiskManagerController();
-
-        riskManagerController.createProject("name");
-        riskManagerController.createProject("mike");
-
         ProjectLibrary.saveProjects(riskManagerController);
     }
 }
