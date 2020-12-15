@@ -22,7 +22,7 @@ public class RiskManagerController implements Initializable {
 
 
     @FXML
-    private ListView<ProjectsFX> projectFXListView;
+    public ListView<ProjectsFX> projectFXListView;
 
     @FXML
     public TableView<RiskFX> riskFXTableView;
@@ -38,13 +38,27 @@ public class RiskManagerController implements Initializable {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
         projectFXListView.getItems().addAll(projectsFXES);
+        try {
+            createProject();
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
 
-        riskFXTableView.getItems().add(new RiskFX(1, "mike", 2, 2, 2));
-
+        try {
+            setOpenProject(1);
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
+        try {
+            addRisk("mik",2,2,"2");
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void createProject() throws NoProjectException {
         projectTable.createProject("mike");
+
         projectFXListView.getItems().add(new ProjectsFX(1, "hi"));
     }
 
@@ -58,7 +72,7 @@ public class RiskManagerController implements Initializable {
         }
         this.riskTableFX.Update(this);
     }
-
+    @FXML
     public void deleteProject(int projectID) throws NoProjectException {
         this.projectTable.deleteProject(projectID);
         this.riskTableFX.Update(this);
