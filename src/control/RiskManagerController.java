@@ -2,20 +2,30 @@ package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import model.Project;
 import model.ProjectTable;
 import persistence.ProjectLibrary;
+import view.ProjectTableFX;
+import view.ProjectsFX;
 import view.RiskTableFX;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class RiskManagerController {
 
     @FXML
     private Button loadProject;
+
+    @FXML ListView projectListView;
 
 
     // Data fields
@@ -35,10 +45,15 @@ public class RiskManagerController {
             projectTable.createProject(project.getProjectName());
         }
     }
-
     @FXML
-    public void loadProject() {
+    public void loadProject() throws NoProjectException {
         ProjectLibrary.loadProjects(this);
+        ArrayList<Project> projects = getProjectTable().getProjects();
+
+        for (Project project:projects) {
+            projectListView.getItems().add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
+        }
+
     }
 
     public void deleteProject(int projectID) throws NoProjectException {
@@ -88,11 +103,8 @@ public class RiskManagerController {
         RiskManagerController riskManagerController = new RiskManagerController();
 
         riskManagerController.createProject("name");
-        riskManagerController.setOpenProject(0);
-        riskManagerController.addRisk("mike", 2, 2, "mike");
+        riskManagerController.createProject("mike");
 
-        riskManagerController.getOpenProject().getRiskTable().getRisks().forEach(i -> System.out.println(i.getDescription()));
+        ProjectLibrary.saveProjects(riskManagerController);
     }
-
-
 }

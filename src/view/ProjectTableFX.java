@@ -3,15 +3,15 @@ package view;
 import control.RiskManagerController;
 import exceptions.NoProjectException;
 import model.Project;
-import model.Risk;
 
 import java.util.ArrayList;
 
 public class ProjectTableFX implements Observer {
-    ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
+
+    ArrayList<ProjectsFX> projectsFX;
 
     public ArrayList<ProjectsFX> getProjectsFXES() {
-        return projectsFXES;
+        return projectsFX;
     }
 
 

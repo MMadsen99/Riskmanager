@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NoProjectException;
 import javafx.stage.FileChooser;
 import model.ProjectTable;
 import control.RiskManagerController;
@@ -38,17 +39,19 @@ public class ProjectLibrary  {
 
             // Method for deserialization of object
             riskManagerController.setProjectTable((ProjectTable) in.readObject());
+            riskManagerController.setOpenProject(0);
             in.close();
             file.close();
         }
 
-        catch(IOException ex)
-        {
+        catch(IOException ex) {
             System.out.println("IOException is caught");
         }
-
         catch(ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException is caught");
+        }
+        catch (NoProjectException e) {
+            e.printStackTrace();
         }
     }
 
