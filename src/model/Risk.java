@@ -34,30 +34,31 @@ public class Risk implements Serializable {
         this.consequence = consequence;
         this.riskName = riskName;
         this.priority = consequence * probability;
-        updatePriority();
+        updateRisk();
     }
 
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
         cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
         if (cm.isActive()) {
-            updatePriority();
+            updateRisk();
         }
     }
 
     public void activateCounterMeasure(boolean wantedState) {
         cm.activeCounterMeasure(wantedState);
-        if (cm.isActive()) {
-            updatePriority();
-        }
+        updateRisk();
     }
 
     public void removeCounterMeasure() {
         this.cm = null;
+        this.revisedConsequence = Double.NaN;
+        this.revisedProbability = Double.NaN;
+        updateRisk();
     }
 
-    public void updatePriority() {
-        if (cm == null) {
-            return;
+    public void updateRisk() {
+        if (cm == null || !cm.isActive()) {
+            this.priority = consequence * probability;
         } else {
             this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
             this.revisedProbability = cm.getProbabilityImpact() * this.probability;

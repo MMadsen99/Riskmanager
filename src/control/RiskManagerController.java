@@ -1,7 +1,9 @@
 package control;
 import exceptions.NoProjectException;
+import exceptions.NoRiskException;
 import model.Project;
 import model.ProjectTable;
+import persistence.ProjectLibrary;
 import view.RiskTableFX;
 
 import java.util.ArrayList;
@@ -41,6 +43,13 @@ public class RiskManagerController {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
     }
+    public void removeCounterMeasure(int riskID) {
+        getOpenProject().removeCounterMeasure(riskID);
+    }
+
+    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException {
+        getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
+    }
     // Getters and Setters
     public ProjectTable getProjectTable() {
         return projectTable;
@@ -62,20 +71,18 @@ public class RiskManagerController {
     public Project getOpenProject() {
         return this.openProject;
     }
-    public static void main(String[] args) throws NoProjectException {
+    public static void main(String[] args) throws NoProjectException, NoRiskException {
         RiskManagerController riskManagerController = new RiskManagerController();
-        riskManagerController.createProject("Mike");
-        riskManagerController.setOpenProject(2);
-        System.out.println(riskManagerController.getOpenProject().getProjectName());
 
-        riskManagerController.addRisk("lose moneny", 2.0, 2.9, "fuck");
+        riskManagerController.createProject("Projekt 1");
+        riskManagerController.setOpenProject(1);
+        riskManagerController.addRisk("Ingen penge", 0.10, 100, "bla");
+        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
+        riskManagerController.addCounterMeasure(0, 0.5, 0.5, "blabla", true);
+        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
+        riskManagerController.activateCounterMeasure(0, false);
+        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getPriority()));
 
-        riskManagerController.riskTableFX.getProjectsFXES().forEach(i -> System.out.println(i.getId() + " " + i.getName()));
-        riskManagerController.addRisk("project two risk", 21, 23, "oh im here");
-        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getID() + " " +i.getRiskName()));
-
-        riskManagerController.addCounterMeasure(0, 0.5, 0.5, "oh no", true);
-        riskManagerController.riskTableFX.getCurrentProjectRisks().forEach(i -> System.out.println(i.getID() + " " +i.getRevisedConsequence()));
 
     }
 }

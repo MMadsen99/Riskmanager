@@ -1,6 +1,8 @@
 package model;
 
-public class CounterMeasure {
+import java.io.Serializable;
+
+public class CounterMeasure implements Serializable {
  
   
     // DataFields ( Variables)
@@ -14,7 +16,7 @@ public class CounterMeasure {
     // This constructor creates a counterMeasure and assigns its some specified values; 
     public CounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active){
         this.active = active;
-        this.consequenceImpact = consequenceImpact;
+        this.consequenceImpact = consequenceImpact ;
         this.probabilityImpact = probabilityImpact;
         this.description = description;
     }

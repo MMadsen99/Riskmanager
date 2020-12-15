@@ -1,6 +1,8 @@
 package model;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
 
     static int count= 0;
 
@@ -53,8 +55,15 @@ public class Project {
     }
     //Removed countermeasure
     public void removeCounterMeasure(int riskID){
-        Risk risk = (Risk) getRiskTable().getRisks().stream().filter(i -> i.getID() == riskID);
-        getRiskTable().getRisks().remove(risk);
+        Risk riskToRemoveCounterFrom = null;
+        for (Risk risk: getRiskTable().getRisks()) {
+            if (risk.getID() == riskID) {
+                riskToRemoveCounterFrom = risk;
+            }
+        }
+        assert riskToRemoveCounterFrom != null;
+        riskToRemoveCounterFrom.removeCounterMeasure();
+
     }
 
 
