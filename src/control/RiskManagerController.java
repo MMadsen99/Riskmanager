@@ -45,12 +45,13 @@ public class RiskManagerController implements Initializable {
         }
 
         try {
-            setOpenProject(1);
+            addRisk("mike",2,2,"4");
         } catch (NoProjectException e) {
             e.printStackTrace();
         }
+
         try {
-            addRisk("mik",2,2,"2");
+            addCounterMeasure(0, 0.5,0.5,"hh",false);
         } catch (NoProjectException e) {
             e.printStackTrace();
         }

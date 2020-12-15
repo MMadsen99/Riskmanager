@@ -39,13 +39,11 @@ public class Risk implements Serializable {
 
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
         cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
-        if (cm.isActive()) {
-            updateRisk();
-        }
+        updateRisk();
     }
 
     public void activateCounterMeasure(boolean wantedState) {
-        cm.activeCounterMeasure(wantedState);
+        cm.activateCounterMeasure(wantedState);
         updateRisk();
     }
 
@@ -59,7 +57,12 @@ public class Risk implements Serializable {
     public void updateRisk() {
         if (cm == null || !cm.isActive()) {
             this.priority = consequence * probability;
-        } else {
+        }
+        if (cm != null && !cm.isActive()) {
+            this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
+            this.revisedProbability = cm.getProbabilityImpact() * this.probability;
+        }
+        if (cm != null && cm.isActive()) {
             this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
             this.revisedProbability = cm.getProbabilityImpact() * this.probability;
             this.priority = revisedConsequence * revisedProbability;
