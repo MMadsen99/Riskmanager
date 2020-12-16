@@ -27,7 +27,7 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView;
     // Data fields
-    Project openProject;
+    Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
 
@@ -38,18 +38,16 @@ public class RiskManagerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
+
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
-        if (getProjectTable().getProjects().size() == 0) {
-            this.openProject = new Project("unnamed");
-        } else {
-            this.openProject = getProjectTable().getProjects().get(0);
-        }
         projectFXListView.getItems().addAll(projectsFXES);
+
     }
     @FXML
     public void createProject() throws NoProjectException {
         projectTable.createProject("mike");
         projectTableFX.Update(this);
+
     }
 
     @FXML
@@ -78,14 +76,12 @@ public class RiskManagerController implements Initializable {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
     }
-    public void removeCounterMeasure(int riskID) throws NoProjectException {
+    public void removeCounterMeasure(int riskID) {
         getOpenProject().removeCounterMeasure(riskID);
-        this.riskTableFX.Update(this);
     }
 
-    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException, NoProjectException {
+    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException {
         getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
-        this.riskTableFX.Update(this);
     }
     // Getters and Setters
     public ProjectTable getProjectTable() {
