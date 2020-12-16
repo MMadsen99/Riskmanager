@@ -13,7 +13,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="7.0" layoutY="339.0" prefHeight="59.0" prefWidth="345.0" spacing="100.0">
          <children>
-            <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false"  prefWidth="90.0" text="Add">
+            <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false" onAction="#addRisk" prefWidth="90.0" text="Add">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

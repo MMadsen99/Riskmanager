@@ -20,6 +20,7 @@ public class RiskTableFX implements Observer{
         if(!(controller.riskFXTableView == null)){
             controller.riskFXTableView.getItems().clear();
             controller.riskFXTableView.getItems().addAll(currentProjectRisks);
+
         }
 
 

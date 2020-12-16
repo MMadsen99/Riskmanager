@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
@@ -49,7 +46,7 @@ public class RiskManagerController implements Initializable {
     private Button addRisk;
 
     @FXML
-    public ListView<ProjectsFX> projectFXListView = new ListView<>();
+    public ListView<ProjectsFX> projectFXListView;
 
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
@@ -72,21 +69,44 @@ public class RiskManagerController implements Initializable {
 
 
 
+    //////////////////////////Add Risk Fxml///////////////////////////////////////////////
+
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField desField;
+
+    @FXML
+    private TextField conField;
+
+    @FXML
+    private Slider proSlide;
+
+
+
+    /////////////////////////
+
+
+
+
+
+
     // Data fields
     Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
-
     ProjectTableFX projectTableFX = new ProjectTableFX();
-
-
-
-
-
-
-
-
-
+    public ListView<ProjectsFX> getProjectFXListView() {
+        return projectFXListView;
+    }
 
     // Methods
     @Override
@@ -95,7 +115,13 @@ public class RiskManagerController implements Initializable {
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
         if (projectFXListView != null) {
             projectFXListView.getItems().addAll(projectsFXES);
+
         }
+
+
+
+
+
     }
 
     @FXML
@@ -103,7 +129,6 @@ public class RiskManagerController implements Initializable {
         System.out.println(createProjectNameField.getText());
         projectTable.createProject(createProjectNameField.getText());
         System.out.println(projectTable.getProjects());
-
         Stage stage = (Stage) createProjectCreateButton.getScene().getWindow();
         stage.close();
 
@@ -135,13 +160,13 @@ public class RiskManagerController implements Initializable {
     }
 
 
-
-
-
-    public void addRisk(String name, double probability, double cost, String description) throws NoProjectException {
-        this.openProject.addRisk(name, probability, cost, description);
+    public void addRisk(ActionEvent event) throws NoProjectException {
+        this.openProject.addRisk(nameField.getText(), proSlide.getValue(), Double.parseDouble(conField.getText()), desField.getText());
         this.riskTableFX.Update(this);
     }
+
+
+
 
     public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException, NoRiskException {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
@@ -238,6 +263,7 @@ public class RiskManagerController implements Initializable {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(createProjectScene);
         window.showAndWait();
+
     }
 
     public void displayModifyRiskPopUp(ActionEvent event) throws IOException {
@@ -269,8 +295,6 @@ public class RiskManagerController implements Initializable {
         window.setScene(deleteScene);
         window.showAndWait();
     }
-
-
 
 
 
