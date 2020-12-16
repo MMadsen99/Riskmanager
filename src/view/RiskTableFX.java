@@ -23,9 +23,9 @@ public class RiskTableFX implements Observer{
 
     private void updateRisks(RiskManagerController controller) {
         try {
-            controller.getOpenProject().getRiskTable().getRisks().forEach(risk -> currentProjectRisks.add(new RiskFX(risk)));
+            controller.getOpenProject().getRiskTable().getRisks().forEach(risk -> currentProjectRisks.add(new RiskFX(risk.getID(), risk.getRiskName(), risk.getProbability(), risk.getConsequence(), risk.getPriority())));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("no current project");
         }
     }
 }
