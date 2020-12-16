@@ -22,11 +22,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML(), 640, 480);
+        scene = new Scene(loadFXML(), 1366, 786);
         stage.setScene(scene);
         stage.setTitle("RiskManager");
         stage.show();
         stage.setMaximized(true);
+
     }
     private static Parent loadFXML() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainPage.fxml"));

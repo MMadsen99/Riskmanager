@@ -51,7 +51,7 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
 
-
+    // hej
 
     ////////////////////////      CreateProject Fxml ////////////////////////////////////////
 
@@ -63,6 +63,8 @@ public class RiskManagerController implements Initializable {
 
     @FXML
     private TextField createProjectNameField;
+
+
 
 
 
