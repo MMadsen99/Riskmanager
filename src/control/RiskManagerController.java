@@ -20,8 +20,6 @@ import view.ProjectTableFX;
 import view.ProjectsFX;
 import view.RiskFX;
 import view.RiskTableFX;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class RiskManagerController implements Initializable {
 
     ProjectTableFX projectTableFX = new ProjectTableFX();
 
-
+    AddRiskControl r1 = new AddRiskControl();
 
     // Methods
     @Override
@@ -143,7 +141,12 @@ public class RiskManagerController implements Initializable {
            //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
            window.initModality(Modality.APPLICATION_MODAL);
            window.setScene(addRiskScene);
+           r1.getValue();
+
+
+
            window.showAndWait();
+
     }
 
     public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
