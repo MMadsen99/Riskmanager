@@ -17,6 +17,7 @@ public class RiskTableFX implements Observer{
     public void Update(RiskManagerController controller) throws NoProjectException {
         currentProjectRisks = new ArrayList<>();
         updateRisks(controller);
+        controller.riskFXTableView.getItems().clear();
         controller.riskFXTableView.getItems().addAll(currentProjectRisks);
     }
 

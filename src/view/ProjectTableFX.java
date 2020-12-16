@@ -14,6 +14,7 @@ public class ProjectTableFX implements Observer {
 
         ArrayList<Project> projects = controller.getProjectTable().getProjects();
         updateProjects(projects);
+        controller.projectFXListView.getItems().clear();
         controller.projectFXListView.getItems().addAll(projectsFXES);
 
     }

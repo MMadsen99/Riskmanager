@@ -15,8 +15,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.RiskManagerController">
    <columnConstraints>
       <ColumnConstraints />
@@ -29,27 +27,32 @@
          <children>
             <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: #c7c6c1;">
                <children>
-                  <Button fx:id="loadProject" alignment="CENTER" mnemonicParsing="false" onAction="#loadProjects" prefHeight="94.0" prefWidth="162.0" text="Load project" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="createProject" alignment="CENTER" mnemonicParsing="false" onAction="#createProject" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1014.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="loadProject" alignment="CENTER" mnemonicParsing="false" onAction="#loadProjects" prefHeight="94.0" prefWidth="162.0" text="Load projects" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1145.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Modify risk" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="addRisk" alignment="CENTER" layoutX="1014.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1276.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="modifyRisk" alignment="CENTER" layoutX="1145.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Modify risk" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1407.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Activate countermeasure" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="addCounterMeasure" alignment="CENTER" layoutX="1276.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="activateCounterMeasure" alignment="CENTER" layoutX="1407.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Activate countermeasure" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -61,52 +64,18 @@
                   </Button>
                </children>
             </HBox>
-            <ListView fx:id="projectFXListView" layoutX="-1.0" layoutY="97.0" prefHeight="782.0" prefWidth="355.0" />
-            <TableView  fx:id="riskFXTableView" layoutX="394.0" layoutY="171.0" prefHeight="480.0" prefWidth="1474.0">
-               <columns>
-                  <TableColumn prefWidth="150" text="Risk">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="name" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="150" text="Probabiity">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="probability" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="150" text="Consequence">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="consequence" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="riskPriorityColumn" prefWidth="150" text="Priority">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="priority" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="150" text="revised probability">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="revisedProbability" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="150" text="revised consequence">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="revisedConsequence" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="150" text="Counter measure status">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="cmStatus" />
-                     </cellValueFactory>
-                  </TableColumn>
-               </columns>
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                  </FXCollections>
-               </items>
-               <sortOrder>
-                  <fx:reference source="riskPriorityColumn" />
-               </sortOrder>
+            <ListView fx:id="projectListView" layoutX="-1.0" layoutY="97.0" prefHeight="782.0" prefWidth="355.0" />
+            <TableView layoutX="394.0" layoutY="171.0" prefHeight="480.0" prefWidth="1474.0">
+              <columns>
+                <TableColumn prefWidth="160.99996948242188" text="Risks" />
+                <TableColumn prefWidth="181.00003051757812" text="Probability" />
+                  <TableColumn prefWidth="186.66668701171875" text="Consequence" />
+                  <TableColumn prefWidth="189.333251953125" text="Priority" />
+                  <TableColumn prefWidth="223.666748046875" text="Revised probability" />
+                  <TableColumn prefWidth="266.3333740234375" text="Revised consequence" />
+                  <TableColumn prefWidth="270.666748046875" text="Countermeasure status" />
+              </columns>
+               
             </TableView>
             <TextArea layoutX="393.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" />
             <TextArea layoutX="1386.0" layoutY="702.0" prefHeight="178.0" prefWidth="485.0" />
@@ -135,11 +104,6 @@
                <image>
                   <Image url="@../Image/riskmanagerlogo.png" />
                </image></ImageView>
-            <Button fx:id="createProject" alignment="CENTER" layoutX="264.0" layoutY="648.0" mnemonicParsing="false" onAction="#createProject" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
          </children>
       </Pane>
    </children>

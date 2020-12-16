@@ -27,9 +27,11 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView;
     // Data fields
-    Project openProject = new Project("unnamed");
+    Project openProject;
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
+
+    ProjectTableFX projectTableFX = new ProjectTableFX();
 
 
     // Methods
@@ -37,30 +39,17 @@ public class RiskManagerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
+        if (getProjectTable().getProjects().size() == 0) {
+            this.openProject = new Project("unnamed");
+        } else {
+            this.openProject = getProjectTable().getProjects().get(0);
+        }
         projectFXListView.getItems().addAll(projectsFXES);
-        try {
-            createProject();
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            addRisk("mike",2,2,"4");
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            addCounterMeasure(0, 0.5,0.5,"hh",false);
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
     }
     @FXML
     public void createProject() throws NoProjectException {
         projectTable.createProject("mike");
-
-        projectFXListView.getItems().add(new ProjectsFX(1, "hi"));
+        projectTableFX.Update(this);
     }
 
     @FXML
@@ -89,12 +78,14 @@ public class RiskManagerController implements Initializable {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
     }
-    public void removeCounterMeasure(int riskID) {
+    public void removeCounterMeasure(int riskID) throws NoProjectException {
         getOpenProject().removeCounterMeasure(riskID);
+        this.riskTableFX.Update(this);
     }
 
-    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException {
+    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException, NoProjectException {
         getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
+        this.riskTableFX.Update(this);
     }
     // Getters and Setters
     public ProjectTable getProjectTable() {
