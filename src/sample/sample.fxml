@@ -29,7 +29,7 @@
          <children>
             <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: #c7c6c1;">
                <children>
-                  <Button fx:id="createProject" alignment="CENTER" mnemonicParsing="false" onAction="#createProject" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="createProject" alignment="CENTER" mnemonicParsing="false" onAction="#displayCreateProjectPopUp" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -39,27 +39,27 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1014.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="addRisk" alignment="CENTER" layoutX="1014.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayAddRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1145.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Modify risk" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="ModifyRiskKnap" alignment="CENTER" layoutX="1145.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayModifyRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Modify risk" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1276.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="addCounterMeasure" alignment="CENTER" layoutX="1276.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayAddCounterMeasurePopUp" prefHeight="94.0" prefWidth="162.0" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1407.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Activate countermeasure" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="activateCounterMeasureKnap" alignment="CENTER" layoutX="1407.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Activate countermeasure" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" layoutX="1538.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Delete" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="deleteKnap" alignment="CENTER" layoutX="1538.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Delete" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -113,7 +113,7 @@
                   <fx:reference source="riskPriorityColumn" />
                </sortOrder>
             </TableView>
-            <TextArea layoutX="393.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" />
+            <TextArea fx:id="createProjectKnap" layoutX="393.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" />
             <TextArea layoutX="1386.0" layoutY="702.0" prefHeight="178.0" prefWidth="485.0" />
             <Label alignment="CENTER" layoutX="390.0" layoutY="28.0" prefHeight="100.0" prefWidth="1480.0">
                <font>
