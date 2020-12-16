@@ -84,6 +84,18 @@ public class RiskManagerController implements Initializable {
         } catch (NoProjectException e) {
             e.printStackTrace();
         }
+        try {
+            activateCounterMeasure(0,false);
+        } catch (NoRiskException | NoProjectException e) {
+            e.printStackTrace();
+        }
+        try {
+            activateCounterMeasure(0,true);
+        } catch (NoRiskException | NoProjectException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 
@@ -123,8 +135,9 @@ public class RiskManagerController implements Initializable {
         getOpenProject().removeCounterMeasure(riskID);
     }
 
-    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException {
+    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException, NoProjectException {
         getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
+        this.riskTableFX.Update(this);
     }
     // Getters and Setters
     public ProjectTable getProjectTable() {
