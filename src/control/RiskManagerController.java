@@ -138,7 +138,7 @@ public class RiskManagerController implements Initializable {
 
    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
            Stage window = new Stage();
-           Parent addRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/AddRisk.fxml"));
+           Parent addRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/AddRisk.fxml"));
            Scene addRiskScene = new Scene(addRiskParent, 500, 300);
            //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
            window.initModality(Modality.APPLICATION_MODAL);
@@ -148,7 +148,7 @@ public class RiskManagerController implements Initializable {
 
     public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
         Stage window = new Stage();
-        Parent createProjectParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/CreateProject.fxml"));
+        Parent createProjectParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/CreateProject.fxml"));
         Scene createProjectScene = new Scene(createProjectParent, 500, 300);
         //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -158,7 +158,7 @@ public class RiskManagerController implements Initializable {
 
     public void displayModifyRiskPopUp(ActionEvent event) throws IOException {
         Stage window = new Stage();
-        Parent modifyRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/ModifyRisk.fxml"));
+        Parent modifyRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/ModifyRisk.fxml"));
         Scene modifyRiskScene = new Scene(modifyRiskParent, 500, 300);
         //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -168,7 +168,7 @@ public class RiskManagerController implements Initializable {
 
     public void displayAddCounterMeasurePopUp(ActionEvent event) throws IOException {
         Stage window = new Stage();
-        Parent addCounterMeasureParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/AddCounterMeasure.fxml"));
+        Parent addCounterMeasureParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/AddCounterMeasure.fxml"));
         Scene addCounterMeasureScene = new Scene(addCounterMeasureParent, 500, 300);
         //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -178,7 +178,7 @@ public class RiskManagerController implements Initializable {
 
     public void displayDeletePopUp(ActionEvent event ) throws IOException {
         Stage window = new Stage();
-        Parent deleteParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/Delete.fxml"));
+        Parent deleteParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/Delete.fxml"));
         Scene deleteScene = new Scene(deleteParent, 500, 300);
         //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);

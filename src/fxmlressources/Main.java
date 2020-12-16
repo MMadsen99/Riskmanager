@@ -1,4 +1,4 @@
-package sample;
+package fxmlressources;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +29,7 @@ public class Main extends Application {
         stage.setMaximized(true);
     }
     private static Parent loadFXML() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainpage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainPage.fxml"));
 
         return fxmlLoader.load();
     }

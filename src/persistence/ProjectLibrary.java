@@ -4,7 +4,7 @@ import exceptions.NoProjectException;
 import javafx.stage.FileChooser;
 import model.ProjectTable;
 import control.RiskManagerController;
-import sample.Main;
+import fxmlressources.Main;
 
 import java.io.*;
 
