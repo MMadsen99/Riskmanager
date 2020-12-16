@@ -101,7 +101,7 @@
                   </TableColumn>
                   <TableColumn prefWidth="150" text="Counter measure status">
                      <cellValueFactory>
-                        <PropertyValueFactory property="counterMeasureStatus" />
+                        <PropertyValueFactory property="cmStatus" />
                      </cellValueFactory>
                   </TableColumn>
                </columns>

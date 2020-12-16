@@ -66,7 +66,25 @@ public class RiskManagerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
-        projectFXListView.getItems().addAll(projectsFXES);
+        if (projectFXListView != null) {
+            projectFXListView.getItems().addAll(projectsFXES);
+        }
+        try {
+            createProject();
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
+        try {
+            addRisk("Anders",12,12,"Hej");
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
+        try {
+            addCounterMeasure(0,15,15,"Hej",true);
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -142,7 +160,6 @@ public class RiskManagerController implements Initializable {
            window.initModality(Modality.APPLICATION_MODAL);
            window.setScene(addRiskScene);
            r1.getValue();
-
 
 
            window.showAndWait();
