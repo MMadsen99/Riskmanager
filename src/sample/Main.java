@@ -1,6 +1,5 @@
 package sample;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +29,7 @@ public class Main extends Application {
         stage.setMaximized(true);
     }
     private static Parent loadFXML() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource( "sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainpage.fxml"));
 
         return fxmlLoader.load();
     }

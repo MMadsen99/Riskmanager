@@ -70,6 +70,7 @@ public class RiskManagerController implements Initializable {
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
         projectFXListView.getItems().addAll(projectsFXES);
     }
+
     @FXML
     public void createProject() throws NoProjectException {
         projectTable.createProject("mike");

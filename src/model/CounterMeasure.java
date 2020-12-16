@@ -23,7 +23,7 @@ public class CounterMeasure implements Serializable {
 
     // Methods
     // This method can set whether or not a counter measure should be active;
-    public void activeCounterMeasure(boolean wantedState){
+    public void activateCounterMeasure(boolean wantedState){
         this.active = wantedState;
     }
 
