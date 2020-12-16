@@ -22,7 +22,7 @@
             </Button>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="21.0" layoutY="76.0" prefHeight="17.0" prefWidth="326.0" text="Are you sure you want to delete this object?" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="15.0" layoutY="76.0" prefHeight="21.0" prefWidth="332.0" text="Are you sure you want to delete this object?" textAlignment="CENTER">
          <font>
             <Font size="15.0" />
          </font>
