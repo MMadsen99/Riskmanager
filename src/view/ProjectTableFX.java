@@ -11,18 +11,21 @@ public class ProjectTableFX implements Observer {
     ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
     @Override
     public void Update(RiskManagerController controller) throws NoProjectException {
-
+        System.out.println("hello");
         ArrayList<Project> projects = controller.getProjectTable().getProjects();
         updateProjects(projects);
-        controller.projectFXListView.getItems().clear();
-        controller.projectFXListView.getItems().addAll(projectsFXES);
+        if(!(controller.projectFXListView == null)){
+            System.out.println("RR");
+            controller.projectFXListView.getItems().clear();
+            controller.projectFXListView.getItems().addAll(projectsFXES);
+
+        }
 
     }
 
     private void updateProjects(ArrayList<Project> projects) {
          projectsFXES = new ArrayList<>();
         for (Project project: projects) {
-
             projectsFXES.add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }
     }

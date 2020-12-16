@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
@@ -48,16 +49,44 @@ public class RiskManagerController implements Initializable {
     private Button addRisk;
 
     @FXML
-    public ListView<ProjectsFX> projectFXListView;
+    public ListView<ProjectsFX> projectFXListView = new ListView<>();
 
     @FXML
-    public TableView<RiskFX> riskFXTableView;
+    public TableView<RiskFX> riskFXTableView = new TableView<>();
+
+
+
+    ////////////////////////      CreateProject Fxml ////////////////////////////////////////
+
+    @FXML
+    private Button createProjectCreateButton;
+
+    @FXML
+    private Button cancelProjectCancelButton;
+
+    @FXML
+    private TextField createProjectNameField;
+
+
+
+
+
+
     // Data fields
     Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
 
     ProjectTableFX projectTableFX = new ProjectTableFX();
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,50 +98,14 @@ public class RiskManagerController implements Initializable {
         if (projectFXListView != null) {
             projectFXListView.getItems().addAll(projectsFXES);
         }
-        try {
-            createProject();
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-        try {
-            addRisk("Anders",12,12,"Hej");
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-        try {
-            addCounterMeasure(0,15,15,"Hej",true);
-        } catch (NoProjectException | NoRiskException e) {
-            e.printStackTrace();
-        }
-        try {
-            activateCounterMeasure(0,true);
-        } catch (NoRiskException | NoProjectException e) {
-            e.printStackTrace();
-        }
-        try {
-            activateCounterMeasure(0,false);
-        } catch (NoRiskException | NoProjectException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            removeCounterMeasure(0);
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-        try {
-            addCounterMeasure(0,15,15,"Hej",true);
-        } catch (NoProjectException | NoRiskException e) {
-            e.printStackTrace();
-        }
-
-
-
     }
 
     @FXML
     public void createProject() throws NoProjectException {
-        projectTable.createProject("mike");
+        System.out.println(createProjectNameField.getText());
+        projectTable.createProject(createProjectNameField.getText());
+        System.out.println(projectTable.getProjects());
+
         projectTableFX.Update(this);
     }
 
@@ -133,6 +126,17 @@ public class RiskManagerController implements Initializable {
     }
 
 
+
+
+    public void editRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
+        this.openProject.editRisk(riskID,riskName,probability,consequence,description);
+        this.riskTableFX.Update(this);
+    }
+
+
+
+
+
     public void addRisk(String name, double probability, double cost, String description) throws NoProjectException {
         this.openProject.addRisk(name, probability, cost, description);
         this.riskTableFX.Update(this);
@@ -151,6 +155,22 @@ public class RiskManagerController implements Initializable {
         getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
         this.riskTableFX.Update(this);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Getters and Setters
     public ProjectTable getProjectTable() {
         return projectTable;
@@ -172,10 +192,31 @@ public class RiskManagerController implements Initializable {
     public Project getOpenProject() {
         return this.openProject;
     }
-    public static void main(String[] args) throws NoProjectException, NoRiskException {
-        RiskManagerController riskManagerController = new RiskManagerController();
-        ProjectLibrary.saveProjects(riskManagerController);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
            Stage window = new Stage();
@@ -184,9 +225,6 @@ public class RiskManagerController implements Initializable {
            //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
            window.initModality(Modality.APPLICATION_MODAL);
            window.setScene(addRiskScene);
-
-
-
            window.showAndWait();
 
     }

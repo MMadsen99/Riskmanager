@@ -32,7 +32,9 @@ public class Project implements Serializable {
     }
 
     //Edit risk
-    public void editRisk(String riskName, double probability, double consequence, String description){
+    public void editRisk(int riskID, String riskName, double probability, double consequence, String description) throws NoRiskException {
+
+        getRiskTable().getRisk(riskID).editRisk(riskName,probability,consequence,description);
 
     }
 
