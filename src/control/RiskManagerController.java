@@ -88,8 +88,6 @@ public class RiskManagerController implements Initializable {
 
 
 
-
-
     // Methods
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -105,6 +103,9 @@ public class RiskManagerController implements Initializable {
         System.out.println(createProjectNameField.getText());
         projectTable.createProject(createProjectNameField.getText());
         System.out.println(projectTable.getProjects());
+
+        Stage stage = (Stage) createProjectCreateButton.getScene().getWindow();
+        stage.close();
 
         projectTableFX.Update(this);
     }

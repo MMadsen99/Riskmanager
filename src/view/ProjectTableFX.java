@@ -18,7 +18,6 @@ public class ProjectTableFX implements Observer {
             System.out.println("RR");
             controller.projectFXListView.getItems().clear();
             controller.projectFXListView.getItems().addAll(projectsFXES);
-
         }
 
     }
