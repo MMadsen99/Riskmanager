@@ -13,6 +13,7 @@ public class DeleteController extends RiskManagerController {
     @FXML
     private Button deleteNoButton;
 
+
     @FXML
     public void deleteProject(int projectID) throws NoProjectException {
         this.projectTable.deleteProject(projectID);

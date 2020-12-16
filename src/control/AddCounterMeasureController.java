@@ -31,6 +31,7 @@ public class AddCounterMeasureController extends RiskManagerController {
 
 
 
+
     public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException, NoRiskException {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
