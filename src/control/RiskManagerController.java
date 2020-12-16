@@ -32,6 +32,7 @@ public class RiskManagerController implements Initializable {
     RiskTableFX riskTableFX = new RiskTableFX();
 
 
+
     // Methods
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

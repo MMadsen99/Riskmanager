@@ -29,10 +29,11 @@ public class ProjectLibrary  {
 
 
     public static void loadProjects(RiskManagerController riskManagerController) {
+        File projectFile = fileChooser.showOpenDialog(Main.getScene().getWindow());
+
         try
         {
             // Reading the object from a file
-            File projectFile = fileChooser.showOpenDialog(Main.getScene().getWindow());
 
             FileInputStream file = new FileInputStream(projectFile);
 
