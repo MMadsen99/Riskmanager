@@ -31,6 +31,8 @@ public class RiskManagerController implements Initializable {
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
 
+    ProjectTableFX projectTableFX = new ProjectTableFX();
+
 
 
     // Methods
@@ -39,28 +41,11 @@ public class RiskManagerController implements Initializable {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
         projectFXListView.getItems().addAll(projectsFXES);
-        try {
-            createProject();
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            setOpenProject(1);
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
-        try {
-            addRisk("mik",2,2,"2");
-        } catch (NoProjectException e) {
-            e.printStackTrace();
-        }
     }
     @FXML
     public void createProject() throws NoProjectException {
         projectTable.createProject("mike");
-
-        projectFXListView.getItems().add(new ProjectsFX(1, "hi"));
+        projectTableFX.Update(this);
     }
 
     @FXML
