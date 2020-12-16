@@ -59,7 +59,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="deleteKnap" alignment="CENTER" layoutX="1538.0" layoutY="13.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Delete" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="deleteKnap" alignment="CENTER" layoutX="1538.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayDeletePopUp" prefHeight="94.0" prefWidth="162.0" text="Delete" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
