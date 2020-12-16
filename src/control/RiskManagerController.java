@@ -1,5 +1,4 @@
 package control;
-
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 import javafx.event.ActionEvent;
@@ -51,8 +50,6 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
 
-    // hej
-
     ////////////////////////      CreateProject Fxml ////////////////////////////////////////
 
     @FXML
@@ -64,16 +61,7 @@ public class RiskManagerController implements Initializable {
     @FXML
     private TextField createProjectNameField;
 
-
-
-
-
-
-
-
     //////////////////////////Add Risk Fxml///////////////////////////////////////////////
-
-
     @FXML
     private Button addButton;
 
@@ -91,8 +79,6 @@ public class RiskManagerController implements Initializable {
 
     @FXML
     private Slider proSlide;
-
-
 
     /////////////////////////
 
@@ -119,11 +105,6 @@ public class RiskManagerController implements Initializable {
             projectFXListView.getItems().addAll(projectsFXES);
 
         }
-
-
-
-
-
     }
 
     @FXML
