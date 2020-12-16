@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 
 
 import java.io.*;
-
 /**
  * JavaFX App
  */
+
 public class Main extends Application {
     private static Scene scene;
     private static FileChooser fileChooser = new FileChooser();
@@ -22,12 +22,13 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primarystage) throws IOException {
         scene = new Scene(loadFXML(), 640, 480);
-        stage.setScene(scene);
-        stage.setTitle("RiskManager");
-        stage.show();
-        stage.setMaximized(true);
+        primarystage.setScene(scene);
+        primarystage.setTitle("RiskManager");
+
+        primarystage.setMaximized(true);
+        primarystage.show();
     }
     private static Parent loadFXML() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource( "sample.fxml"));

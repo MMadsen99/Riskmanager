@@ -2,10 +2,17 @@ package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import model.Project;
 import model.ProjectTable;
 import persistence.ProjectLibrary;
@@ -14,6 +21,7 @@ import view.ProjectsFX;
 import view.RiskFX;
 import view.RiskTableFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -31,6 +39,17 @@ public class RiskManagerController implements Initializable {
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
 
+
+    public void createProjectPopUpButton(ActionEvent event) throws IOException
+    {
+        Parent createProjectParent = FXMLLoader.load(getClass().getResource("../sample/CreateProject.fxml"));
+        Scene createProjectScene = new Scene(createProjectParent, 500, 300);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(createProjectScene);
+        window.show();
+    }
 
     // Methods
     @Override
