@@ -3,12 +3,13 @@ package control;
 import exceptions.NoProjectException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import view.ProjectTableFX;
+import view.ProjectsFX;
 
-public class CreateProjectController {
-
-
+public class CreateProjectController extends RiskManagerController {
 
     @FXML
     private Button createProjectCreateButton;
@@ -19,19 +20,9 @@ public class CreateProjectController {
     @FXML
     private TextField createProjectNameField;
 
-
-
-
-
     @FXML
     public void createProject() throws NoProjectException {
-        System.out.println(createProjectNameField.getText());
-        projectTable.createProject(createProjectNameField.getText());
-        System.out.println(projectTable.getProjects());
-        Stage stage = (Stage) createProjectCreateButton.getScene().getWindow();
-        stage.close();
-
-        projectTableFX.Update(this);
+        getProjectTable().createProject("name");
+        projectTableFX.updateProjects(super.getProjectFXListView(), projectTable);
     }
-
 }

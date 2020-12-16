@@ -1,6 +1,5 @@
 package control;
 import exceptions.NoProjectException;
-import exceptions.NoRiskException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
 import model.ProjectTable;
+import model.RiskTable;
 import persistence.ProjectLibrary;
 import view.ProjectTableFX;
 import view.ProjectsFX;
@@ -45,37 +45,10 @@ public class RiskManagerController implements Initializable {
     private Button addRisk;
 
     @FXML
-    public ListView<ProjectsFX> projectFXListView;
+    public ListView<ProjectsFX> projectFXListView = new ListView<>();
 
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
-
-
-    //////////////////////////Add Risk Fxml///////////////////////////////////////////////
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField desField;
-
-    @FXML
-    private TextField conField;
-
-    @FXML
-    private Slider proSlide;
-
-
-
-
-
-
-
 
     // Data fields
     Project openProject = new Project("unnamed");
@@ -97,8 +70,6 @@ public class RiskManagerController implements Initializable {
         }
     }
 
-
-
     @FXML
     public void loadProjects() throws NoProjectException {
         ProjectLibrary.loadProjects(this);
@@ -107,26 +78,13 @@ public class RiskManagerController implements Initializable {
         for (Project project:projects) {
             projectFXListView.getItems().add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }
-        this.riskTableFX.Update(this);
+        this.riskTableFX.updateRisks(this, getOpenProject().getRiskTable());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Getters and Setters
+
+    public RiskManagerController getRiskManagerController() {
+        return this;
+    }
     public ProjectTable getProjectTable() {
         return projectTable;
     }
@@ -141,7 +99,7 @@ public class RiskManagerController implements Initializable {
         } catch (Exception e) {
             System.out.println("No project with this ID");
         }
-        this.riskTableFX.Update(this);
+        this.riskTableFX.updateProjects(projectFXListView, projectTable);
     }
 
     public Project getOpenProject() {
@@ -149,35 +107,10 @@ public class RiskManagerController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
            Stage window = new Stage();
            Parent addRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/AddRisk.fxml"));
            Scene addRiskScene = new Scene(addRiskParent, 500, 300);
-           //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
            window.initModality(Modality.APPLICATION_MODAL);
            window.setScene(addRiskScene);
            window.showAndWait();
@@ -188,7 +121,6 @@ public class RiskManagerController implements Initializable {
         Stage window = new Stage();
         Parent createProjectParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/CreateProject.fxml"));
         Scene createProjectScene = new Scene(createProjectParent, 500, 300);
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(createProjectScene);
         window.showAndWait();
@@ -199,7 +131,6 @@ public class RiskManagerController implements Initializable {
         Stage window = new Stage();
         Parent modifyRiskParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/ModifyRisk.fxml"));
         Scene modifyRiskScene = new Scene(modifyRiskParent, 500, 300);
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(modifyRiskScene);
         window.showAndWait();
@@ -209,7 +140,6 @@ public class RiskManagerController implements Initializable {
         Stage window = new Stage();
         Parent addCounterMeasureParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/AddCounterMeasure.fxml"));
         Scene addCounterMeasureScene = new Scene(addCounterMeasureParent, 500, 300);
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(addCounterMeasureScene);
         window.showAndWait();
@@ -219,7 +149,6 @@ public class RiskManagerController implements Initializable {
         Stage window = new Stage();
         Parent deleteParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/Delete.fxml"));
         Scene deleteScene = new Scene(deleteParent, 500, 300);
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(deleteScene);
         window.showAndWait();

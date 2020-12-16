@@ -1,9 +1,10 @@
+/*
 package control;
 
 import exceptions.NoProjectException;
 import javafx.fxml.FXML;
 
-public class DeleteController {
+public class DeleteController extends RiskManagerController {
 
     @FXML
     public void deleteProject(int projectID) throws NoProjectException {
@@ -11,3 +12,4 @@ public class DeleteController {
         this.riskTableFX.Update(this);
     }
 }
+*/

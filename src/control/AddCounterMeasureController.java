@@ -1,9 +1,10 @@
+/*
 package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 
-public class AddCounterMeasureController {
+public class AddCounterMeasureController extends RiskManagerController {
 
 
 
@@ -28,3 +29,4 @@ public class AddCounterMeasureController {
 
 
 }
+*/

@@ -29,17 +29,7 @@
          <children>
             <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: #c7c6c1;">
                <children>
-                  <Button fx:id="createProject" alignment="CENTER" mnemonicParsing="false" onAction="#displayCreateProjectPopUp" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
                   <Button fx:id="loadProject" alignment="CENTER" mnemonicParsing="false" onAction="#loadProjects" prefHeight="94.0" prefWidth="162.0" text="Load project" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="addRisk" alignment="CENTER" layoutX="1014.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayAddRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -140,6 +130,16 @@
                <image>
                   <Image url="@riskmanagerlogo.png" />
                </image></ImageView>
+            <Button fx:id="createProject" alignment="CENTER" layoutX="256.0" layoutY="788.0" mnemonicParsing="false" onAction="#displayCreateProjectPopUp" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="addRisk" alignment="CENTER" layoutX="438.0" layoutY="633.0" mnemonicParsing="false" onAction="#displayAddRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
