@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.NoRiskException;
+
 import java.io.Serializable;
 
 public class Project implements Serializable {
@@ -36,7 +38,7 @@ public class Project implements Serializable {
 
 
     //Add CounterMeasure
-    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) {
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoRiskException {
         Risk riskToCounter = null;
         for (Risk risk: getRiskTable().getRisks()) {
             if (risk.getID() == riskID) {

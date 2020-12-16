@@ -57,15 +57,19 @@ public class Risk implements Serializable {
     public void updateRisk() {
         if (cm == null || !cm.isActive()) {
             this.priority = consequence * probability;
+            System.out.println(1);
         }
         if (cm != null && !cm.isActive()) {
             this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
             this.revisedProbability = cm.getProbabilityImpact() * this.probability;
+
+            System.out.println(2);
         }
         if (cm != null && cm.isActive()) {
             this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
             this.revisedProbability = cm.getProbabilityImpact() * this.probability;
             this.priority = revisedConsequence * revisedProbability;
+            System.out.println(3);
         }
     }
 

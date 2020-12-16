@@ -59,7 +59,7 @@ public class RiskManagerController implements Initializable {
 
     ProjectTableFX projectTableFX = new ProjectTableFX();
 
-    AddRiskControl r1 = new AddRiskControl();
+
 
     // Methods
     @Override
@@ -81,7 +81,12 @@ public class RiskManagerController implements Initializable {
         }
         try {
             addCounterMeasure(0,15,15,"Hej",true);
-        } catch (NoProjectException e) {
+        } catch (NoProjectException | NoRiskException e) {
+            e.printStackTrace();
+        }
+        try {
+            activateCounterMeasure(0,true);
+        } catch (NoRiskException | NoProjectException e) {
             e.printStackTrace();
         }
         try {
@@ -89,9 +94,15 @@ public class RiskManagerController implements Initializable {
         } catch (NoRiskException | NoProjectException e) {
             e.printStackTrace();
         }
+
         try {
-            activateCounterMeasure(0,true);
-        } catch (NoRiskException | NoProjectException e) {
+            removeCounterMeasure(0);
+        } catch (NoProjectException e) {
+            e.printStackTrace();
+        }
+        try {
+            addCounterMeasure(0,15,15,"Hej",true);
+        } catch (NoProjectException | NoRiskException e) {
             e.printStackTrace();
         }
 
@@ -127,12 +138,13 @@ public class RiskManagerController implements Initializable {
         this.riskTableFX.Update(this);
     }
 
-    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException {
+    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException, NoRiskException {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
     }
-    public void removeCounterMeasure(int riskID) {
+    public void removeCounterMeasure(int riskID) throws NoProjectException {
         getOpenProject().removeCounterMeasure(riskID);
+        this.riskTableFX.Update(this);
     }
 
     public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException, NoProjectException {
@@ -172,7 +184,7 @@ public class RiskManagerController implements Initializable {
            //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
            window.initModality(Modality.APPLICATION_MODAL);
            window.setScene(addRiskScene);
-           r1.getValue();
+
 
 
            window.showAndWait();

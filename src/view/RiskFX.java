@@ -9,15 +9,15 @@ public class RiskFX {
     double probability;
     double consequence;
     double priority;
-    double revisedProbability;
-    double revisedConsequence;
+    String revisedProbability;
+    String revisedConsequence;
     String cmStatus;
 
-    public double getRevisedProbability() {
+    public String getRevisedProbability() {
         return revisedProbability;
     }
 
-    public double getRevisedConsequence() {
+    public String getRevisedConsequence() {
         return revisedConsequence;
     }
 
@@ -34,13 +34,19 @@ public class RiskFX {
         this.priority = risk.getPriority();
 
         if (risk.getCm() != null) {
-            this.revisedProbability = risk.getRevisedProbability();
-            this.revisedConsequence = risk.getRevisedConsequence();
+            this.revisedProbability = String.valueOf(risk.getRevisedProbability());
+            this.revisedConsequence = String.valueOf(risk.getRevisedConsequence());
             if (risk.getCm().isActive()){
                 this.cmStatus = "Active";
-            } else {
+            } else if (!risk.getCm().isActive()) {
                 this.cmStatus = "Inactive";
             }
+        }else{
+
+            this.revisedConsequence = "";
+            this.revisedProbability = "";
+
+
         }
     }
 

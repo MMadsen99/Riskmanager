@@ -22,6 +22,7 @@ public class ProjectTableFX implements Observer {
     private void updateProjects(ArrayList<Project> projects) {
          projectsFXES = new ArrayList<>();
         for (Project project: projects) {
+
             projectsFXES.add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
         }
     }
