@@ -107,16 +107,7 @@ public class RiskManagerController implements Initializable {
         }
     }
 
-    @FXML
-    public void createProject() throws NoProjectException {
-        System.out.println(createProjectNameField.getText());
-        projectTable.createProject(createProjectNameField.getText());
-        System.out.println(projectTable.getProjects());
-        Stage stage = (Stage) createProjectCreateButton.getScene().getWindow();
-        stage.close();
 
-        projectTableFX.Update(this);
-    }
 
     @FXML
     public void loadProjects() throws NoProjectException {
@@ -128,11 +119,7 @@ public class RiskManagerController implements Initializable {
         }
         this.riskTableFX.Update(this);
     }
-    @FXML
-    public void deleteProject(int projectID) throws NoProjectException {
-        this.projectTable.deleteProject(projectID);
-        this.riskTableFX.Update(this);
-    }
+
 
 
 
