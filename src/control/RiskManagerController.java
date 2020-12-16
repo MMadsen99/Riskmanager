@@ -106,6 +106,16 @@ public class RiskManagerController implements Initializable {
         return this.openProject;
     }
 
+    ////////////////////////      CreateProject Fxml ////////////////////////////////////////
+
+    @FXML
+    private Button createProjectCreateButton;
+
+    @FXML
+    private Button cancelProjectCancelButton;
+
+    @FXML
+    private TextField createProjectNameField;
 
    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
            Stage window = new Stage();
@@ -153,7 +163,7 @@ public class RiskManagerController implements Initializable {
         window.setScene(deleteScene);
         window.showAndWait();
     }
-
+    /////////////////////////
 
 
 }

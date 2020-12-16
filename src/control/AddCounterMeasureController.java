@@ -3,10 +3,30 @@ package control;
 
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 
 public class AddCounterMeasureController extends RiskManagerController {
 
+    @FXML
+    private TextField addCountermeasureCon;
 
+    @FXML
+    private Slider addCountermeasureProSlider;
+
+    @FXML
+    private Button addCountermeasureAddButton;
+
+    @FXML
+    private Button addCountermeasureCancelButton;
+
+    @FXML
+    private TextField addCountermeasureName;
+
+    @FXML
+    private TextField addCountermeasureDes;
 
 
 

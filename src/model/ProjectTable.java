@@ -1,5 +1,6 @@
 package model;
 
+import control.RiskManagerController;
 import exceptions.NoProjectException;
 
 import java.io.Serializable;
