@@ -137,37 +137,6 @@ public class RiskManagerController implements Initializable {
 
 
 
-    public void editRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
-        this.openProject.editRisk(riskID,riskName,probability,consequence,description);
-        this.riskTableFX.Update(this);
-    }
-
-
-    public void addRisk(ActionEvent event) throws NoProjectException {
-        this.openProject.addRisk(nameField.getText(), proSlide.getValue(), Double.parseDouble(conField.getText()), desField.getText());
-        this.riskTableFX.Update(this);
-    }
-
-
-
-
-    public void addCounterMeasure(int riskID, double probabilityImpact, double consequenceImpact, String description, boolean active) throws NoProjectException, NoRiskException {
-        getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
-        this.riskTableFX.Update(this);
-    }
-    public void removeCounterMeasure(int riskID) throws NoProjectException {
-        getOpenProject().removeCounterMeasure(riskID);
-        this.riskTableFX.Update(this);
-    }
-
-    public void activateCounterMeasure(int riskID, boolean wantedState) throws NoRiskException, NoProjectException {
-        getOpenProject().getRiskTable().getRisk(riskID).activateCounterMeasure(wantedState);
-        this.riskTableFX.Update(this);
-    }
-
-
-
-
 
 
 
