@@ -176,6 +176,15 @@ public class RiskManagerController implements Initializable {
         window.showAndWait();
     }
 
+    public void displayDeletePopUp(ActionEvent event ) throws IOException {
+        Stage window = new Stage();
+        Parent deleteParent = FXMLLoader.load(RiskManagerController.class.getResource("../sample/Delete.fxml"));
+        Scene deleteScene = new Scene(deleteParent, 500, 300);
+        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setScene(deleteScene);
+        window.showAndWait();
+    }
 
 
 
