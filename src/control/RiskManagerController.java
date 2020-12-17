@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RiskManagerController implements Initializable {
+
     @FXML
     private Button createProject;
 
@@ -59,13 +61,14 @@ public class RiskManagerController implements Initializable {
 
     @FXML
     private TextArea riskDesBox;
-
+    @FXML
+    private TextArea projectSummary;
 
 
 
 
     // Data fields
-    Project openProject;
+    Project openProject = new Project("unnamed");
     RiskFX selectedRisk;
     ProjectsFX selectedProject;
     int riskId;
@@ -152,7 +155,8 @@ public class RiskManagerController implements Initializable {
         if (selectedProject == null) return;
         try {
             this.openProject = projectTable.getProject(selectedProject.getId());
-            System.out.println(openProject.getProjectName());
+            this.projectSummary.setText(selectedProject.toString());
+
         } catch (Exception e) {
             System.out.println("No project with this ID");
         }
@@ -558,10 +562,6 @@ public class RiskManagerController implements Initializable {
         popupwindow.setScene(scene1);
 
         popupwindow.showAndWait();
-
-
-
-
     }
 
     @FXML
@@ -579,5 +579,12 @@ public class RiskManagerController implements Initializable {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
             activateCounterMeasure(selectedRisk.getId(),true);
         }
+    }
+    @FXML
+    public void loadRiskDescription() {
+        this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+        if (selectedRisk == null) return;
+
+        riskDesBox.setText(selectedRisk.toString());
     }
 }

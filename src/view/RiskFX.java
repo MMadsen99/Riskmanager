@@ -77,4 +77,15 @@ public class RiskFX {
     public double getPriority() {
         return priority;
     }
+
+    @Override
+    public String toString() {
+
+        return "RiskID:" + this.id + "\n" +
+                "Risk Name" + this.name + "\n" +
+                "Risk Description " + this.description + "\n" +
+                "Risk Probability " + this.probability + "\n" +
+                "Risk Consequence " + this.consequence + "\n" +
+                "Risk Priority" + this.priority;
+    }
 }
