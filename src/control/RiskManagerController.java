@@ -54,6 +54,9 @@ public class RiskManagerController implements Initializable {
     private Button addRisk;
 
     @FXML
+    private Button DeleteProject;
+
+    @FXML
     public ListView<ProjectsFX> projectFXListView;
 
     @FXML
@@ -62,7 +65,9 @@ public class RiskManagerController implements Initializable {
     // Data fields
     Project openProject = new Project("unnamed");
     RiskFX selectedRisk;
+    ProjectsFX selectedProject;
     int riskId;
+    int projectID;
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
     ProjectTableFX projectTableFX = new ProjectTableFX();
@@ -98,7 +103,7 @@ public class RiskManagerController implements Initializable {
 
     public void deleteProject(int projectID) throws NoProjectException {
         this.projectTable.deleteProject(projectID);
-        this.riskTableFX.Update(this);
+        this.projectTableFX.Update(this);
     }
 
     public void modifyRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
@@ -363,15 +368,16 @@ public class RiskManagerController implements Initializable {
         window.showAndWait();
     }
 
-    public void displayDeletePopUp(ActionEvent event ) throws IOException {
+    public void displayDeleteRiskPopUp(ActionEvent event ) throws IOException {
         // made a another push
         Stage popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
 
         popupwindow.setTitle("Delete Risk");
+
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-        this.riskId = selectedRisk.getId();
+       this.riskId = selectedRisk.getId();
 
         Label label = new Label("Are you sure you want to delete this risk?");
         Label riskLabel = new Label(selectedRisk.getName());
@@ -386,6 +392,62 @@ public class RiskManagerController implements Initializable {
             try {
                 deleteRisk(this.riskId);
             } catch (NoRiskException | NoProjectException noProjectException) {
+                noProjectException.printStackTrace();
+            }
+            popupwindow.close();
+        });
+
+
+        cancelButton.setOnAction(e -> popupwindow.close());
+
+        GridPane gridPane = new GridPane();
+
+        VBox  vBox = new VBox(label, riskLabel);
+        HBox  hBox = new HBox(createButton, cancelButton);
+
+        vBox.setSpacing(10);
+        hBox.setSpacing(25);
+
+        vBox.getChildren().add(hBox);
+        gridPane.getChildren().add(vBox);
+
+        // layout.getChildren().addAll(projectName, createButton, cancelButton);
+
+        gridPane.setAlignment(Pos.CENTER);
+
+        Scene scene1= new Scene(gridPane, 300, 250);
+        popupwindow.setScene(scene1);
+
+        popupwindow.showAndWait();
+    }
+
+
+
+    @FXML
+    void displayDeleteProjectPopUp(ActionEvent event) {
+
+        // made a another push
+        Stage popupwindow = new Stage();
+
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+
+        popupwindow.setTitle("Delete Project");
+
+        this.selectedProject = projectFXListView.getSelectionModel().getSelectedItem();
+        this.projectID = selectedProject.getId();
+
+        Label label = new Label("Are you sure you want to delete this Project?");
+        Label riskLabel = new Label(selectedProject.getName());
+        label.setStyle("-fx-font-weight: bold");
+
+        Button createButton = new Button("Delete");
+
+        Button cancelButton = new Button("Cancel");
+
+        createButton.setOnAction(e -> {
+            try {
+                deleteProject(this.projectID);
+            } catch (NoProjectException noProjectException) {
                 noProjectException.printStackTrace();
             }
             popupwindow.close();
@@ -412,5 +474,14 @@ public class RiskManagerController implements Initializable {
         popupwindow.setScene(scene1);
 
         popupwindow.showAndWait();
+
+
+
+
     }
+
+
+
+
+
 }
