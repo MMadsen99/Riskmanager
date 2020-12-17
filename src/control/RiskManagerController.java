@@ -1,6 +1,9 @@
 package control;
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -178,6 +181,11 @@ public class RiskManagerController implements Initializable {
        riskProbability.setShowTickMarks(true);
        riskProbability.setShowTickLabels(true);
 
+       final Label riskProbabilityLabel = new Label("");
+
+       riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
+
+
        Button createButton = new Button(" Add  ");
 
        Button cancelButton = new Button("Cancel");
@@ -203,7 +211,7 @@ public class RiskManagerController implements Initializable {
        VBox  vBox = new VBox(labelName, riskName,
                                     labelDescription, riskDescription,
                                     labelConsequence, riskConsequence,
-                                    labelProbability, riskProbability);
+                                    labelProbability,riskProbabilityLabel, riskProbability);
        HBox  hBox = new HBox(createButton, cancelButton);
 
        vBox.setSpacing(10);
@@ -298,6 +306,10 @@ public class RiskManagerController implements Initializable {
         riskProbability.setShowTickMarks(true);
         riskProbability.setShowTickLabels(true);
 
+        final Label riskProbabilityLabel = new Label("");
+
+        riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
+
         Button createButton = new Button(" Modify  ");
 
         Button cancelButton = new Button("Cancel");
@@ -325,7 +337,7 @@ public class RiskManagerController implements Initializable {
         VBox  vBox = new VBox(labelName, riskName,
                 labelDescription, riskDescription,
                 labelConsequence, riskConsequence,
-                labelProbability, riskProbability);
+                labelProbability, riskProbability, riskProbabilityLabel);
         HBox  hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
