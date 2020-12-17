@@ -124,9 +124,9 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="activateCounterMeasureKnap" alignment="CENTER" layoutX="905.0" layoutY="724.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="162.0" text="Activate countermeasure" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="activateCounterMeasureKnap" alignment="CENTER" layoutX="905.0" layoutY="724.0" mnemonicParsing="false" onAction="#activateAndDeActivateCounterMeasure" prefHeight="94.0" prefWidth="162.0" text="Active/Inactive countermeasure" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Button>
             <Button fx:id="loadProject" alignment="CENTER" layoutX="485.0" layoutY="779.0" mnemonicParsing="false" onAction="#loadProjects" prefHeight="94.0" prefWidth="162.0" text="Load project" textAlignment="CENTER" wrapText="true">

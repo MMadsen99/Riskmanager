@@ -546,6 +546,22 @@ public class RiskManagerController implements Initializable {
 
     }
 
+    @FXML
+    void activateAndDeActivateCounterMeasure(ActionEvent event) throws NoProjectException, NoRiskException {
+        this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+        this.riskId = selectedRisk.getId();
+
+
+        if(selectedRisk.getCmStatus().equals("Active")){
+            selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+            activateCounterMeasure(selectedRisk.getId(),false);
+        }else {
+            selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+            activateCounterMeasure(selectedRisk.getId(),true);
+        }
+
+
+    }
 
 
 
