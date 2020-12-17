@@ -1,9 +1,11 @@
 package view;
 
+import model.CounterMeasure;
 import model.Risk;
 
 public class RiskFX {
 
+    private CounterMeasure cm;
     int id;
     String name;
     String description;
@@ -40,6 +42,7 @@ public class RiskFX {
         this.consequence = risk.getConsequence();
         this.priority = risk.getPriority();
         this.description = risk.getDescription();
+        this.cm = risk.getCm();
 
         if (risk.getCm() != null) {
             this.revisedProbability = String.valueOf(risk.getRevisedProbability());
@@ -76,6 +79,10 @@ public class RiskFX {
 
     public double getPriority() {
         return priority;
+    }
+
+    public CounterMeasure getCm() {
+        return cm;
     }
 
     @Override

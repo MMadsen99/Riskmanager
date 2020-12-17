@@ -10,6 +10,7 @@ public class CounterMeasure implements Serializable {
     private double consequenceImpact = 0;
     private String description;
     private  boolean active = false;
+    private String status;
 
 
     // Constructors
@@ -43,9 +44,16 @@ public class CounterMeasure implements Serializable {
         return consequenceImpact;
         
     }
-    // This method returns a counterMeasures Description;
-    public String getDescription() {
-        return description;
+    // This method returns a counterMeasures summary;
+    @Override
+    public String toString() {
+        if (this.isActive()) status = "Active";
+        if (!this.isActive()) status = "Inactive";
+
+        return "Countermeasure description: " + this.description + "\n" +
+                "Probability impact:        " + this.probabilityImpact + "\n" +
+                "Consequence impact:        " + this.consequenceImpact + "\n" +
+                "Status:                    " + this.status;
     }
 }
 

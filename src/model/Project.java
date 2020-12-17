@@ -27,16 +27,20 @@ public class Project implements Serializable {
 
         rt.addRisk(riskName, probability, consequence, description);
     }
+    public void addRisk(int riskID,String riskName, double probability, double consequence, String description){
+
+        rt.addRisk(riskID,riskName, probability, consequence, description);
+    }
     //Delete risk
     public void deleteRisk(){
     }
 
     //Edit risk
-    public void editRisk(int riskID, String riskName, double probability, double consequence, String description) throws NoRiskException {
+    /*public void editRisk(int riskID, String riskName, double probability, double consequence, String description) throws NoRiskException {
 
         getRiskTable().getRisk(riskID).editRisk(riskName,probability,consequence,description);
 
-    }
+    }*/
 
 
     //Add CounterMeasure

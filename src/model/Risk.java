@@ -25,9 +25,17 @@ public class Risk implements Serializable {
         this.priority = this.consequence * this.probability;
         this.id = count++;
     }
+    public Risk(int riskID, String riskName, double probability, double consequence, String description) {
+        this.riskName = riskName;
+        this.consequence = consequence;
+        this.probability = probability;
+        this.description = description;
+        this.priority = this.consequence * this.probability;
+        this.id = riskID;
+    }
 
     //Methods
-    public void editRisk(String riskName, double probability, double consequence, String description) {
+    /*public void editRisk(String riskName, double probability, double consequence, String description) {
 
         this.description = description;
         this.probability = probability;
@@ -37,7 +45,7 @@ public class Risk implements Serializable {
         updateRisk();
         System.out.println("Risk: " + this.getID() + " has been modified");
         System.out.println("Priority: " + this.getPriority());
-    }
+    }*/
 
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
         cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);

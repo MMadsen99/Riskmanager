@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.CounterMeasure;
 import model.Project;
 import model.ProjectTable;
 import persistence.ProjectLibrary;
@@ -31,8 +32,10 @@ public class RiskManagerController implements Initializable {
     @FXML
     private Button createProject;
 
+
+
     @FXML
-    private Button  loadProject;
+    private Button loadProject;
 
     @FXML
     private Button ModifyRiskKnap;
@@ -63,6 +66,9 @@ public class RiskManagerController implements Initializable {
     private TextArea riskDesBox;
     @FXML
     private TextArea projectSummary;
+    @FXML private TextArea counterMeasureSummary;
+
+
 
 
 
@@ -103,19 +109,27 @@ public class RiskManagerController implements Initializable {
         this.riskTableFX.Update(this);
     }
 
+    public void saveProjects() {
+        ProjectLibrary.saveProjects(this);
+    }
+
     public void deleteProject(int projectID) throws NoProjectException {
         this.projectTable.deleteProject(projectID);
         this.projectTableFX.Update(this);
         this.riskTableFX.Update(this);
     }
 
-    public void modifyRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
+    /*public void modifyRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
         this.openProject.editRisk(riskID,riskName,probability,consequence,description);
         this.riskTableFX.Update(this);
-    }
+    }*/
 
     public void addRisk(String name, double probabilitySlideValue, double consequence, String description) throws NoProjectException {
         this.openProject.addRisk(name, probabilitySlideValue, consequence, description);
+        this.riskTableFX.Update(this);
+    }
+    public void addRisk(int riskID, String name, double probabilitySlideValue, double consequence, String description) throws NoProjectException {
+        this.openProject.addRisk(riskID, name, probabilitySlideValue, consequence, description);
         this.riskTableFX.Update(this);
     }
 
@@ -316,8 +330,15 @@ public class RiskManagerController implements Initializable {
         labelProbability.setStyle("-fx-font-weight: bold");
 
         RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-
         if (selectedRisk == null) return;
+        int riskID = selectedRisk.getId();
+        String name = selectedRisk.getName();
+        double probability = selectedRisk.getProbability();
+        double consequence = selectedRisk.getConsequence();
+        String description = selectedRisk.getDescription();
+        if(selectedRisk.getCm() != null) {
+            CounterMeasure cm = selectedRisk.getCm();
+        }
 
         TextField riskName = new TextField(selectedRisk.getName());
         TextArea riskDescription = new TextArea(selectedRisk.getDescription());
@@ -338,12 +359,13 @@ public class RiskManagerController implements Initializable {
             System.out.println(selectedRisk.toString());
 
             try {
-                modifyRisk(selectedRisk.getId(),
-                          selectedRisk.getName(),
-                         selectedRisk.getProbability(),
-                        selectedRisk.getConsequence(),
-                         selectedRisk.getDescription()
-                );
+                deleteRisk(selectedRisk.getId());
+                addRisk(riskID,
+                        name,
+                        probability,
+                        consequence,
+                         description);
+
             } catch (NoProjectException | NoRiskException noProjectException) {
                 noProjectException.printStackTrace();
             }
@@ -373,7 +395,81 @@ public class RiskManagerController implements Initializable {
         popupwindow.showAndWait();
     }
 
+    /*public void displayModifyRiskPopUp(ActionEvent event) throws IOException {
+        Stage popupwindow =new Stage();
 
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.setTitle("Modify Risk");
+
+        Label labelName = new Label("New risk name");
+        labelName.setStyle("-fx-font-weight: bold");
+
+        Label labelDescription = new Label("New risk description");
+        labelDescription.setStyle("-fx-font-weight: bold");
+
+        Label labelConsequence = new Label("New risk consequence");
+        labelConsequence.setStyle("-fx-font-weight: bold");
+
+        Label labelProbability = new Label("New risk probability");
+        labelProbability.setStyle("-fx-font-weight: bold");
+
+        RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedRisk == null) return;
+
+        TextField riskName = new TextField(selectedRisk.getName());
+        TextArea riskDescription = new TextArea(selectedRisk.getDescription());
+        TextField riskConsequence = new TextField(String.valueOf(selectedRisk.getConsequence()));
+        Slider riskProbability = new Slider(0, 100, selectedRisk.getProbability());
+        riskProbability.setShowTickMarks(true);
+        riskProbability.setShowTickLabels(true);
+
+        final Label riskProbabilityLabel = new Label("");
+
+        riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
+
+        Button createButton = new Button(" Modify  ");
+
+        Button cancelButton = new Button("Cancel");
+
+        createButton.setOnAction(e -> {
+            System.out.println(selectedRisk.toString());
+
+            try {
+                modifyRisk(selectedRisk.getId(),
+                        selectedRisk.getName(),
+                        selectedRisk.getProbability(),
+                        selectedRisk.getConsequence(),
+                        selectedRisk.getDescription()
+                );
+            } catch (NoProjectException | NoRiskException noProjectException) {
+                noProjectException.printStackTrace();
+            }
+            popupwindow.close();
+        });
+
+        cancelButton.setOnAction(e -> popupwindow.close());
+
+        GridPane gridPane = new GridPane();
+
+        VBox  vBox = new VBox(labelName, riskName,
+                labelDescription, riskDescription,
+                labelConsequence, riskConsequence,
+                labelProbability,riskProbabilityLabel ,riskProbability);
+        HBox  hBox = new HBox(createButton, cancelButton);
+
+        vBox.setSpacing(10);
+        hBox.setSpacing(25);
+
+        vBox.getChildren().add(hBox);
+        gridPane.getChildren().add(vBox);
+
+        gridPane.setAlignment(Pos.CENTER);
+
+        Scene scene1= new Scene(gridPane);
+        popupwindow.setScene(scene1);
+        popupwindow.showAndWait();
+    }*/
 
 
     public void displayAddCounterMeasurePopUp(ActionEvent event) throws IOException {
@@ -578,7 +674,11 @@ public class RiskManagerController implements Initializable {
         }else {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
             activateCounterMeasure(selectedRisk.getId(),true);
+            this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
+
         }
+        this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
+
     }
     @FXML
     public void loadRiskDescription() {
@@ -586,5 +686,8 @@ public class RiskManagerController implements Initializable {
         if (selectedRisk == null) return;
 
         riskDesBox.setText(selectedRisk.toString());
+        if (selectedRisk.getCm() != null) {
+            this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
+        }
     }
 }
