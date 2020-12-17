@@ -399,7 +399,7 @@ public class RiskManagerController implements Initializable {
             //System.out.println(selectedRisk.toString());
 
             try {
-                addCounterMeasure(this.riskId, counterProbability.getValue(),
+                addCounterMeasure(selectedRisk.getId(), counterProbability.getValue(),
                         Double.parseDouble(counterConsequence.getText()),
                         counterDescription.getText(),activeOrNot.isSelected()
                 );
