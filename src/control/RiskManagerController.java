@@ -56,6 +56,14 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
 
+
+    @FXML
+    private TextArea riskDesBox;
+
+
+
+
+
     // Data fields
     Project openProject = new Project("unnamed");
     RiskFX selectedRisk;
@@ -224,6 +232,10 @@ public class RiskManagerController implements Initializable {
        Scene scene1= new Scene(gridPane);
        popupwindow.setScene(scene1);
        popupwindow.showAndWait();
+
+       riskDesBox.setText(riskDescription.getText());
+
+
     }
 
     public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
