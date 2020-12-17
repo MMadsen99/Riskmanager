@@ -41,7 +41,7 @@ public class ProjectLibrary  {
 
             // Method for deserialization of object
             riskManagerController.setProjectTable((ProjectTable) in.readObject());
-            riskManagerController.setOpenProject(0);
+            riskManagerController.setOpenProject();
             in.close();
             file.close();
         }

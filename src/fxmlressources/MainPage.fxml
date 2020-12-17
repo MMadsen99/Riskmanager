@@ -27,7 +27,7 @@
       <Pane>
          <children>
             <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: #c7c6c1;" />
-            <ListView fx:id="projectFXListView" layoutX="7.0" layoutY="114.0" prefHeight="782.0" prefWidth="355.0">
+            <ListView onMouseClicked="#setOpenProject" fx:id="projectFXListView" layoutX="7.0" layoutY="114.0" prefHeight="782.0" prefWidth="355.0">
                <items>
                   <FXCollections fx:id="projectList" fx:factory="observableArrayList" />
                </items>

@@ -106,6 +106,7 @@ public class RiskManagerController implements Initializable {
     public void deleteProject(int projectID) throws NoProjectException {
         this.projectTable.deleteProject(projectID);
         this.projectTableFX.Update(this);
+        this.riskTableFX.Update(this);
     }
 
     public void modifyRisk(int riskID,String riskName, double probability, double consequence, String description) throws NoProjectException, NoRiskException {
@@ -139,6 +140,8 @@ public class RiskManagerController implements Initializable {
 
     // Getters and Setters
     public ProjectTable getProjectTable() {
+        if(this.projectTable == null) return null;
+
         return projectTable;
     }
 
@@ -146,9 +149,13 @@ public class RiskManagerController implements Initializable {
         this.projectTable = projectTable;
     }
 
-    public void setOpenProject(int projectID) throws NoProjectException {
+    @FXML
+    public void setOpenProject() throws NoProjectException {
+        ProjectsFX selectedProject = projectFXListView.getSelectionModel().getSelectedItem();
+        if (selectedProject == null) return;
         try {
-            this.openProject = projectTable.getProject(projectID);
+            this.openProject = projectTable.getProject(selectedProject.getId());
+            System.out.println(openProject.getProjectName());
         } catch (Exception e) {
             System.out.println("No project with this ID");
         }
@@ -156,10 +163,9 @@ public class RiskManagerController implements Initializable {
     }
 
     public Project getOpenProject() {
+        if (this.openProject == null) return null;
         return this.openProject;
     }
-
-
 
    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
        // made a another push
@@ -310,6 +316,8 @@ public class RiskManagerController implements Initializable {
 
         RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
 
+        if (selectedRisk == null) return;
+
         TextField riskName = new TextField(selectedRisk.getName());
         TextArea riskDescription = new TextArea(selectedRisk.getDescription());
         TextField riskConsequence = new TextField(String.valueOf(selectedRisk.getConsequence()));
@@ -385,9 +393,8 @@ public class RiskManagerController implements Initializable {
         Label labelActiveOrNotBox = new Label("Activate counterMeasure");
         labelActiveOrNotBox.setStyle("-fx-font-weight: bold");
 
-
-
         RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+        if (selectedRisk == null) return;
 
 
         TextArea counterDescription = new TextArea();
@@ -455,7 +462,8 @@ public class RiskManagerController implements Initializable {
         popupwindow.setTitle("Delete Risk");
 
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-       this.riskId = selectedRisk.getId();
+        if (selectedRisk == null) return;
+        this.riskId = selectedRisk.getId();
 
         Label label = new Label("Are you sure you want to delete this risk?");
         Label riskLabel = new Label(selectedRisk.getName());
@@ -512,6 +520,7 @@ public class RiskManagerController implements Initializable {
         popupwindow.setTitle("Delete Project");
 
         this.selectedProject = projectFXListView.getSelectionModel().getSelectedItem();
+        if (selectedRisk == null) return;
         this.projectID = selectedProject.getId();
 
         Label label = new Label("Are you sure you want to delete this Project?");
@@ -563,6 +572,8 @@ public class RiskManagerController implements Initializable {
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
         this.riskId = selectedRisk.getId();
 
+        if (selectedRisk == null) return;
+
 
         if(selectedRisk.getCmStatus().equals("Active")){
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
@@ -571,11 +582,5 @@ public class RiskManagerController implements Initializable {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
             activateCounterMeasure(selectedRisk.getId(),true);
         }
-
-
     }
-
-
-
-
 }
