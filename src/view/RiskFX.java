@@ -6,6 +6,8 @@ public class RiskFX {
 
     int id;
     String name;
+    String description;
+
     double probability;
     double consequence;
     double priority;
@@ -13,12 +15,17 @@ public class RiskFX {
     String revisedConsequence;
     String cmStatus;
 
+
     public String getRevisedProbability() {
         return revisedProbability;
     }
 
     public String getRevisedConsequence() {
         return revisedConsequence;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getCmStatus() {
@@ -32,6 +39,7 @@ public class RiskFX {
         this.probability = risk.getProbability();
         this.consequence = risk.getConsequence();
         this.priority = risk.getPriority();
+        this.description = risk.getDescription();
 
         if (risk.getCm() != null) {
             this.revisedProbability = String.valueOf(risk.getRevisedProbability());

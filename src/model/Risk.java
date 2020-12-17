@@ -35,6 +35,8 @@ public class Risk implements Serializable {
         this.riskName = riskName;
         this.priority = consequence * probability;
         updateRisk();
+        System.out.println("Risk: " + this.getID() + " has been modified");
+        System.out.println("Priority: " + this.getPriority());
     }
 
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
@@ -46,7 +48,6 @@ public class Risk implements Serializable {
         cm.activateCounterMeasure(wantedState);
         updateRisk();
     }
-
     public void removeCounterMeasure() {
         this.cm = null;
         this.revisedConsequence = Double.NaN;
@@ -57,7 +58,6 @@ public class Risk implements Serializable {
     public void updateRisk() {
         if (cm == null || !cm.isActive()) {
             this.priority = consequence * probability;
-            System.out.println(1);
         }
         if (cm != null && !cm.isActive()) {
             this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;

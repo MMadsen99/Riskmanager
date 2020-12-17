@@ -29,6 +29,6 @@ public class RiskTable implements Serializable {
             if (risk.getID() == riskId) {
                 return risk;
             }
-        } throw new NoRiskException("Project not found");
+        } throw new NoRiskException("Risk not found");
     }
 }
