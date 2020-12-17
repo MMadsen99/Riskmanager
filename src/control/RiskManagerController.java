@@ -1,6 +1,7 @@
 package control;
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
+import fxmlressources.PopUpCreateProject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,10 +107,10 @@ public class RiskManagerController implements Initializable {
     }
 
 
-    public void addRisk(ActionEvent event) throws NoProjectException {
+    /*public void addRisk(ActionEvent event) throws NoProjectException {
         this.openProject.addRisk(nameField.getText(), proSlide.getValue(), Double.parseDouble(conField.getText()), desField.getText());
         this.riskTableFX.Update(this);
-    }
+    }*/
 
 
 
@@ -167,13 +168,19 @@ public class RiskManagerController implements Initializable {
     }
 
     public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
-        Stage window = new Stage();
+
+        PopUpCreateProject.display();
+
+
+
+
+       /* Stage window = new Stage();
         Parent createProjectParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/CreateProject.fxml"));
         Scene createProjectScene = new Scene(createProjectParent, 500, 300);
         //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(createProjectScene);
-        window.showAndWait();
+        window.showAndWait();*/
 
     }
 
