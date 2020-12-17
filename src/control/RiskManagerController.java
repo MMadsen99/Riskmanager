@@ -65,7 +65,7 @@ public class RiskManagerController implements Initializable {
 
 
     // Data fields
-    Project openProject = new Project("unnamed");
+    Project openProject;
     RiskFX selectedRisk;
     ProjectsFX selectedProject;
     int riskId;
@@ -73,20 +73,17 @@ public class RiskManagerController implements Initializable {
     ProjectTable projectTable = new ProjectTable();
     RiskTableFX riskTableFX = new RiskTableFX();
     ProjectTableFX projectTableFX = new ProjectTableFX();
-    public ListView<ProjectsFX> getProjectFXListView() {
-        return projectFXListView;
-    }
 
     // Methods
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
+        if (getProjectTable() == null) return;
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
         if (projectFXListView != null) {
             projectFXListView.getItems().addAll(projectsFXES);
         }
     }
-
 
     public void createProject(String name) throws NoProjectException {
         projectTable.createProject(name);
@@ -520,7 +517,7 @@ public class RiskManagerController implements Initializable {
         popupwindow.setTitle("Delete Project");
 
         this.selectedProject = projectFXListView.getSelectionModel().getSelectedItem();
-        if (selectedRisk == null) return;
+        if (selectedProject == null) return;
         this.projectID = selectedProject.getId();
 
         Label label = new Label("Are you sure you want to delete this Project?");
