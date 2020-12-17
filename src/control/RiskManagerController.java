@@ -170,6 +170,8 @@ public class RiskManagerController implements Initializable {
 
     public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
 
+
+         // made a another push
         Stage popupwindow =new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
