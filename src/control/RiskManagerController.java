@@ -50,43 +50,6 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
 
-    ////////////////////////      CreateProject Fxml ////////////////////////////////////////
-
-    @FXML
-    private Button createProjectCreateButton;
-
-    @FXML
-    private Button cancelProjectCancelButton;
-
-    @FXML
-    private TextField createProjectNameField;
-
-    //////////////////////////Add Risk Fxml///////////////////////////////////////////////
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField desField;
-
-    @FXML
-    private TextField conField;
-
-    @FXML
-    private Slider proSlide;
-
-    /////////////////////////
-
-
-
-
-
-
     // Data fields
     Project openProject = new Project("unnamed");
     ProjectTable projectTable = new ProjectTable();
@@ -107,7 +70,7 @@ public class RiskManagerController implements Initializable {
         }
     }
 
-    @FXML
+    /*@FXML
     public void createProject() throws NoProjectException {
         System.out.println(createProjectNameField.getText());
         projectTable.createProject(createProjectNameField.getText());
@@ -116,7 +79,7 @@ public class RiskManagerController implements Initializable {
         stage.close();
 
         projectTableFX.Update(this);
-    }
+    }*/
 
     @FXML
     public void loadProjects() throws NoProjectException {
@@ -168,18 +131,6 @@ public class RiskManagerController implements Initializable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     // Getters and Setters
     public ProjectTable getProjectTable() {
         return projectTable;
@@ -201,29 +152,6 @@ public class RiskManagerController implements Initializable {
     public Project getOpenProject() {
         return this.openProject;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -278,7 +206,6 @@ public class RiskManagerController implements Initializable {
         window.setScene(deleteScene);
         window.showAndWait();
     }
-
 
 
 }
