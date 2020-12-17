@@ -2,18 +2,12 @@ package control;
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -342,7 +336,7 @@ public class RiskManagerController implements Initializable {
         VBox  vBox = new VBox(labelName, riskName,
                 labelDescription, riskDescription,
                 labelConsequence, riskConsequence,
-                labelProbability, riskProbability, riskProbabilityLabel);
+                labelProbability,riskProbabilityLabel ,riskProbability);
         HBox  hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
@@ -358,14 +352,86 @@ public class RiskManagerController implements Initializable {
         popupwindow.showAndWait();
     }
 
+
+
+
     public void displayAddCounterMeasurePopUp(ActionEvent event) throws IOException {
-        Stage window = new Stage();
-        Parent addCounterMeasureParent = FXMLLoader.load(RiskManagerController.class.getResource("../fxmlressources/AddCounterMeasure.fxml"));
-        Scene addCounterMeasureScene = new Scene(addCounterMeasureParent, 500, 300);
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setScene(addCounterMeasureScene);
-        window.showAndWait();
+        Stage popupwindow =new Stage();
+
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.setTitle("AddCounterMeasure");
+
+        Label labelCounterDescription = new Label("Counter Measure Description ");
+        labelCounterDescription.setStyle("-fx-font-weight: bold");
+
+        Label labelCounterConsequence = new Label("CounterMeasure Consequence Impact");
+        labelCounterConsequence.setStyle("-fx-font-weight: bold");
+
+        Label labelCounterProbability = new Label("CounterMeasure probability Impact");
+        labelCounterProbability.setStyle("-fx-font-weight: bold");
+
+        Label labelActiveOrNotBox = new Label("Activate counterMeasure");
+        labelActiveOrNotBox.setStyle("-fx-font-weight: bold");
+
+
+
+        RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+
+
+        TextArea counterDescription = new TextArea();
+        TextField counterConsequence = new TextField();
+        Slider counterProbability = new Slider(0, 100, selectedRisk.getProbability());
+        CheckBox activeOrNot = new CheckBox();
+
+
+        counterProbability.setShowTickMarks(true);
+        counterProbability.setShowTickLabels(true);
+
+        final Label counterProbabilityLabel = new Label("");
+
+        counterProbabilityLabel.textProperty().bind(Bindings.format("%.0f", counterProbability.valueProperty()));
+
+        Button createButton = new Button(" Add ");
+
+        Button cancelButton = new Button("Cancel");
+
+        createButton.setOnAction(e -> {
+            //System.out.println(selectedRisk.toString());
+
+            try {
+                addCounterMeasure(this.riskId, counterProbability.getValue(),
+                        Double.parseDouble(counterConsequence.getText()),
+                        counterDescription.getText(),activeOrNot.isSelected()
+                );
+            } catch (NoProjectException | NoRiskException noProjectException) {
+                noProjectException.printStackTrace();
+            }
+            popupwindow.close();
+        });
+
+        cancelButton.setOnAction(e -> popupwindow.close());
+
+        GridPane gridPane = new GridPane();
+
+        VBox  vBox = new VBox(
+                labelCounterDescription, counterDescription,
+                labelCounterConsequence, counterConsequence,
+                labelCounterProbability,counterProbabilityLabel, counterProbability,
+                labelActiveOrNotBox, activeOrNot);
+
+        HBox  hBox = new HBox(createButton, cancelButton);
+
+        vBox.setSpacing(10);
+        hBox.setSpacing(25);
+
+        vBox.getChildren().add(hBox);
+        gridPane.getChildren().add(vBox);
+
+        gridPane.setAlignment(Pos.CENTER);
+
+        Scene scene1= new Scene(gridPane);
+        popupwindow.setScene(scene1);
+        popupwindow.showAndWait();
     }
 
     public void displayDeleteRiskPopUp(ActionEvent event ) throws IOException {
