@@ -5,8 +5,8 @@ import model.Risk;
 
 public class RiskFX {
 
-    private final CounterMeasure cm;
-    int id;
+    private final CounterMeasure CounterMeaure;
+    int ID;
     String name;
     String description;
 
@@ -15,42 +15,30 @@ public class RiskFX {
     double priority;
     String revisedProbability;
     String revisedConsequence;
-    String cmStatus;
-
-
-    public String getRevisedProbability() {
-        return revisedProbability;
-    }
-
-    public String getRevisedConsequence() {
-        return revisedConsequence;
-    }
+    String CounterMeasureStatus;
 
     public String getDescription() {
         return description;
     }
 
-    public String getCmStatus() {
-        return cmStatus;
-    }
 
     public RiskFX(Risk risk) {
 
-        this.id = risk.getID();
-        this.name = risk.getRiskName();
+        this.ID = risk.getID();
+        this.name = risk.getName();
         this.probability = risk.getProbability();
         this.consequence = risk.getConsequence();
         this.priority = risk.getPriority();
         this.description = risk.getDescription();
-        this.cm = risk.getCm();
+        this.CounterMeaure = risk.getCounterMeasure();
 
-        if (risk.getCm() != null) {
+        if (risk.getCounterMeasure() != null) {
             this.revisedProbability = String.valueOf(risk.getRevisedProbability());
             this.revisedConsequence = String.valueOf(risk.getRevisedConsequence());
-            if (risk.getCm().isActive()){
-                this.cmStatus = "Active";
-            } else if (!risk.getCm().isActive()) {
-                this.cmStatus = "Inactive";
+            if (risk.getCounterMeasure().isActive()){
+                this.CounterMeasureStatus = "Active";
+            } else if (!risk.getCounterMeasure().isActive()) {
+                this.CounterMeasureStatus = "Inactive";
             }
         }else{
 
@@ -61,8 +49,8 @@ public class RiskFX {
         }
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getName() {
@@ -81,14 +69,14 @@ public class RiskFX {
         return priority;
     }
 
-    public CounterMeasure getCm() {
-        return cm;
+    public CounterMeasure getGetCounterMeasure() {
+        return CounterMeaure;
     }
 
     @Override
     public String toString() {
 
-        return "RiskID:" + this.id + "\n" +
+        return "RiskID:" + this.ID + "\n" +
                 "Risk Name" + this.name + "\n" +
                 "Risk Description " + this.description + "\n" +
                 "Risk Probability " + this.probability + "\n" +
