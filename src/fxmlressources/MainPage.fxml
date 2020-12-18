@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,17 +25,54 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane>
+      <Pane style="-fx-background-color: white;">
          <children>
-            <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: #c7c6c1;" />
-            <ListView fx:id="projectFXListView" layoutX="14.0" layoutY="115.0" onMouseClicked="#setOpenProject" prefHeight="782.0" prefWidth="355.0">
+            <HBox alignment="CENTER" layoutX="-2.0" layoutY="906.0" prefHeight="109.0" prefWidth="1921.0" spacing="100.0" style="-fx-background-color: white;">
+               <children>
+                  <Button fx:id="createProject" alignment="CENTER" mnemonicParsing="false" onAction="#displayCreateProjectPopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Create project" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="DeleteProject" alignment="CENTER" mnemonicParsing="false" onAction="#displayDeleteProjectPopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Delete Project" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addRisk" alignment="CENTER" mnemonicParsing="false" onAction="#displayAddRiskPopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Add risk" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="ModifyRiskKnap" alignment="CENTER" mnemonicParsing="false" onAction="#displayModifyRiskPopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Modify risk" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteKnap" alignment="CENTER" mnemonicParsing="false" onAction="#displayDeleteRiskPopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Delete Risk" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addCounterMeasure" alignment="CENTER" mnemonicParsing="false" onAction="#displayAddCounterMeasurePopUp" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="activateCounterMeasureKnap" alignment="CENTER" mnemonicParsing="false" onAction="#activateAndDeActivateCounterMeasure" prefHeight="69.0" prefWidth="162.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Active/Inactive countermeasure" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+               </children></HBox>
+            <ListView fx:id="projectFXListView" layoutX="14.0" layoutY="170.0" onMouseClicked="#setOpenProject" prefHeight="710.0" prefWidth="355.0" style="-fx-border-color: #38AECC;">
                <items>
                   <FXCollections fx:id="projectList" fx:factory="observableArrayList" />
                </items>
             </ListView>
-            <TableView fx:id="riskFXTableView" layoutX="394.0" layoutY="171.0" onMouseClicked="#loadRiskDescription" prefHeight="480.0" prefWidth="1474.0">
+            <TableView fx:id="riskFXTableView" layoutX="394.0" layoutY="171.0" onMouseClicked="#loadRiskDescription" prefHeight="480.0" prefWidth="1474.0" style="-fx-border-color: #38AECC; header: #38AECC;">
                <columns>
-                  <TableColumn prefWidth="150" text="Risk">
+                  <TableColumn prefWidth="150" style="header-background: black;" text="Risk">
                      <cellValueFactory>
                         <PropertyValueFactory property="name" />
                      </cellValueFactory>
@@ -78,19 +116,14 @@
                   <fx:reference source="riskPriorityColumn" />
                </sortOrder>
             </TableView>
-            <TextArea fx:id="projectSummary" layoutX="393.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" />
-            <TextArea fx:id="counterMeasureSummary" layoutX="1386.0" layoutY="702.0" prefHeight="178.0" prefWidth="485.0" />
-            <Label alignment="CENTER" layoutX="390.0" layoutY="28.0" prefHeight="100.0" prefWidth="1480.0">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
+            <TextArea fx:id="projectSummary" layoutX="393.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" style="-fx-border-color: #38AECC;" />
+            <TextArea fx:id="counterMeasureSummary" layoutX="1386.0" layoutY="702.0" prefHeight="178.0" prefWidth="485.0" style="-fx-border-color: #38AECC;" />
             <Label alignment="CENTER" layoutX="394.0" layoutY="653.0" prefHeight="50.0" prefWidth="484.0" text="Project summary">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextArea fx:id="riskDesBox" layoutX="890.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" />
+            <TextArea fx:id="riskDesBox" layoutX="890.0" layoutY="703.0" prefHeight="177.0" prefWidth="485.0" style="-fx-border-color: #38AECC;" />
             <Label alignment="CENTER" layoutX="890.0" layoutY="653.0" prefHeight="50.0" prefWidth="484.0" text="Risk description">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -101,54 +134,25 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ImageView fitHeight="765.0" fitWidth="174.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="saveProject" alignment="CENTER" layoutX="1462.0" layoutY="103.0" mnemonicParsing="false" onAction="#saveProjects" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Save Project" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="loadProject" alignment="CENTER" layoutX="1694.0" layoutY="103.0" mnemonicParsing="false" onAction="#loadProjects" prefHeight="50.0" prefWidth="174.0" style="-fx-background-color: #38AECC; -fx-text-fill: white;" text="Load project" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="178.0" fitWidth="194.0" layoutX="23.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               </image></ImageView>
-            <Button fx:id="createProject" alignment="CENTER" layoutX="261.0" layoutY="735.0" mnemonicParsing="false" onAction="#displayCreateProjectPopUp" prefHeight="94.0" prefWidth="162.0" text="Create project" textAlignment="CENTER" wrapText="true">
+                  <Image url="@../../../../Downloads/riskmanagerlogo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="146.0" layoutY="128.0" prefHeight="35.0" prefWidth="110.0" text="Projects">
                <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="addRisk" alignment="CENTER" layoutX="438.0" layoutY="633.0" mnemonicParsing="false" onAction="#displayAddRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Add risk" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="ModifyRiskKnap" alignment="CENTER" layoutX="228.0" layoutY="629.0" mnemonicParsing="false" onAction="#displayModifyRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Modify risk" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="addCounterMeasure" alignment="CENTER" layoutX="707.0" layoutY="780.0" mnemonicParsing="false" onAction="#displayAddCounterMeasurePopUp" prefHeight="94.0" prefWidth="162.0" text="Add countermeasure" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="activateCounterMeasureKnap" alignment="CENTER" layoutX="905.0" layoutY="724.0" mnemonicParsing="false" onAction="#activateAndDeActivateCounterMeasure" prefHeight="94.0" prefWidth="162.0" text="Active/Inactive countermeasure" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="loadProject" alignment="CENTER" layoutX="577.0" layoutY="635.0" mnemonicParsing="false" onAction="#loadProjects" prefHeight="94.0" prefWidth="162.0" text="Load project" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="deleteKnap" alignment="CENTER" layoutX="717.0" layoutY="635.0" mnemonicParsing="false" onAction="#displayDeleteRiskPopUp" prefHeight="94.0" prefWidth="162.0" text="Delete" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="DeleteProject" alignment="CENTER" layoutX="52.0" layoutY="624.0" mnemonicParsing="false" onAction="#displayDeleteProjectPopUp" prefHeight="94.0" prefWidth="162.0" text="Delete Project" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="saveProject" alignment="CENTER" layoutX="192.0" layoutY="506.0" mnemonicParsing="false" onAction="#saveProjects" prefHeight="94.0" prefWidth="162.0" text="Save Project" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
+                  <Font name="System Bold" size="24.0" />
+               </font></Label>
          </children>
       </Pane>
    </children>

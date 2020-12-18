@@ -67,6 +67,12 @@ public class RiskManagerController implements Initializable {
     @FXML
     private TextArea counterMeasureSummary;
 
+
+
+
+
+
+
     UnaryOperator<TextFormatter.Change> filter = change -> {
         String text = change.getText();
 
@@ -93,6 +99,7 @@ public class RiskManagerController implements Initializable {
         if (getProjectTable() == null) return;
         getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p)));
             projectFXListView.getItems().addAll(projectsFXES);
+
         }
 
 
@@ -220,7 +227,7 @@ public class RiskManagerController implements Initializable {
 
         final Label riskProbabilityLabel = new Label("");
 
-       // riskConsequence.setTextFormatter(new TextFormatter<>(filter));
+       riskConsequence.setTextFormatter(new TextFormatter<>(filter));
         riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
 
 
