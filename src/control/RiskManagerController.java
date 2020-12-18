@@ -646,7 +646,7 @@ public class RiskManagerController implements Initializable {
             }
             popUpWindow.close();
         });
-
+// Hej
         cancelButton.setOnAction(e -> popUpWindow.close());
 
         GridPane gridPane = new GridPane();
