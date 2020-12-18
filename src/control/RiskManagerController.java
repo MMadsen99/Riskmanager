@@ -76,6 +76,7 @@ public class RiskManagerController implements Initializable {
 
         return null;
     };
+
     // Data fields
     Project openProject;
     RiskFX selectedRisk;
@@ -220,7 +221,7 @@ public class RiskManagerController implements Initializable {
 
         final Label riskProbabilityLabel = new Label("");
 
-       // riskConsequence.setTextFormatter(new TextFormatter<>(filter));
+        riskConsequence.setTextFormatter(new TextFormatter<>(filter));
         riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
 
 
@@ -339,13 +340,13 @@ public class RiskManagerController implements Initializable {
 
         if (selectedRisk == null) return;
 
-        int riskID = selectedRisk.getId();
+        int riskID = selectedRisk.getID();
         String name = selectedRisk.getName();
         double probability = selectedRisk.getProbability();
         double consequence = selectedRisk.getConsequence();
         String description = selectedRisk.getDescription();
-        if (selectedRisk.getCm() != null) {
-            CounterMeasure cm = selectedRisk.getCm();
+        if (selectedRisk.getGetCounterMeasure() != null) {
+            CounterMeasure cm = selectedRisk.getGetCounterMeasure();
         }
 
         TextField riskName = new TextField(selectedRisk.getName());
@@ -369,7 +370,7 @@ public class RiskManagerController implements Initializable {
             System.out.println(selectedRisk.toString());
 
             try {
-                deleteRisk(selectedRisk.getId());
+                deleteRisk(selectedRisk.getID());
                 addRisk(riskID,
                         name,
                         probability,
@@ -528,7 +529,7 @@ public class RiskManagerController implements Initializable {
             //System.out.println(selectedRisk.toString());
 
             try {
-                addCounterMeasure(selectedRisk.getId(), counterProbability.getValue(),
+                addCounterMeasure(selectedRisk.getID(), counterProbability.getValue(),
                         Double.parseDouble(counterConsequence.getText()),
                         counterDescription.getText(), activeOrNot.isSelected()
                 );
@@ -573,7 +574,7 @@ public class RiskManagerController implements Initializable {
 
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
         if (selectedRisk == null) return;
-        this.riskId = selectedRisk.getId();
+        this.riskId = selectedRisk.getID();
 
         Label label = new Label("Are you sure you want to delete this risk?");
         Label riskLabel = new Label(selectedRisk.getName());
@@ -672,31 +673,29 @@ public class RiskManagerController implements Initializable {
     @FXML
     void activateAndDeActivateCounterMeasure() throws NoProjectException, NoRiskException {
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-        this.riskId = selectedRisk.getId();
+        this.riskId = selectedRisk.getID();
 
         if (selectedRisk == null) return;
 
 
-        if (selectedRisk.getCmStatus().equals("Active")) {
+        if (selectedRisk.getGetCounterMeasure().equals("Active")) {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-            activateCounterMeasure(selectedRisk.getId(), false);
+            activateCounterMeasure(selectedRisk.getID(), false);
         } else {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-            activateCounterMeasure(selectedRisk.getId(), true);
-            this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
-
+            activateCounterMeasure(selectedRisk.getID(), true);
+            this.counterMeasureSummary.setText(selectedRisk.getGetCounterMeasure().toString());
         }
-        this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
+        this.counterMeasureSummary.setText(selectedRisk.getGetCounterMeasure().toString());
     }
-
     @FXML
     public void loadRiskDescription() {
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
         if (selectedRisk == null) return;
 
         riskDesBox.setText(selectedRisk.toString());
-        if (selectedRisk.getCm() != null) {
-            this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
+        if (selectedRisk.getGetCounterMeasure() != null) {
+            this.counterMeasureSummary.setText(selectedRisk.getGetCounterMeasure().toString());
         }
     }
 }

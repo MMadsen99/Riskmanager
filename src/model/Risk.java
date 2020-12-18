@@ -4,29 +4,29 @@ import java.io.Serializable;
 public class Risk implements Serializable {
 
     //Datafield (variables)
-    private final String riskName;
+    private final String name;
     private final double probability;
     private final double consequence;
     private final String description;
     private double priority;
     private double revisedProbability;
     private double revisedConsequence;
-    private CounterMeasure cm;
+    private CounterMeasure CounterMeasure;
     static int count = 0;
     int id;
 
 
     // Constructor
-    public Risk(String riskName, double probability, double consequence, String description) {
-        this.riskName = riskName;
+    public Risk(String name, double probability, double consequence, String description) {
+        this.name = name;
         this.consequence = consequence;
         this.probability = probability;
         this.description = description;
         this.priority = this.consequence * this.probability;
         this.id = count++;
     }
-    public Risk(int riskID, String riskName, double probability, double consequence, String description) {
-        this.riskName = riskName;
+    public Risk(int riskID, String name, double probability, double consequence, String description) {
+        this.name = name;
         this.consequence = consequence;
         this.probability = probability;
         this.description = description;
@@ -48,34 +48,34 @@ public class Risk implements Serializable {
     }*/
 
     public void addCounterMeasure(double probabilityImpact, double consequenceImpact, String description, boolean active) {
-        cm = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
+        CounterMeasure = new CounterMeasure(probabilityImpact, consequenceImpact, description, active);
         updateRisk();
     }
 
     public void activateCounterMeasure(boolean wantedState) {
-        cm.activateCounterMeasure(wantedState);
+        CounterMeasure.activateCounterMeasure(wantedState);
         updateRisk();
     }
     public void removeCounterMeasure() {
-        this.cm = null;
+        this.CounterMeasure = null;
         this.revisedConsequence = Double.NaN;
         this.revisedProbability = Double.NaN;
         updateRisk();
     }
 
     public void updateRisk() {
-        if (cm == null || !cm.isActive()) {
+        if (CounterMeasure == null || !CounterMeasure.isActive()) {
             this.priority = consequence * probability;
         }
-        if (cm != null && !cm.isActive()) {
-            this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
-            this.revisedProbability = cm.getProbabilityImpact() * this.probability;
+        if (CounterMeasure != null && !CounterMeasure.isActive()) {
+            this.revisedConsequence = CounterMeasure.getConsequenceImpact() * this.consequence;
+            this.revisedProbability = CounterMeasure.getProbabilityImpact() * this.probability;
 
             System.out.println(2);
         }
-        if (cm != null && cm.isActive()) {
-            this.revisedConsequence = cm.getConsequenceImpact() * this.consequence;
-            this.revisedProbability = cm.getProbabilityImpact() * this.probability;
+        if (CounterMeasure != null && CounterMeasure.isActive()) {
+            this.revisedConsequence = CounterMeasure.getConsequenceImpact() * this.consequence;
+            this.revisedProbability = CounterMeasure.getProbabilityImpact() * this.probability;
             this.priority = revisedConsequence * revisedProbability;
             System.out.println(3);
         }
@@ -83,8 +83,8 @@ public class Risk implements Serializable {
 
 
     // Getters and Setters
-    public String getRiskName() {
-        return riskName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -111,8 +111,8 @@ public class Risk implements Serializable {
         return revisedProbability;
     }
 
-    public CounterMeasure getCm() {
-        return cm;
+    public CounterMeasure getCounterMeasure() {
+        return CounterMeasure;
     }
 
     public int getID() {
