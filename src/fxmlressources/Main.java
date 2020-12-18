@@ -14,7 +14,7 @@ import java.io.*;
  */
 public class Main extends Application {
     private static Scene scene;
-    private static FileChooser fileChooser = new FileChooser();
+    private static final FileChooser fileChooser = new FileChooser();
 
     public static Scene getScene() {
         return scene;

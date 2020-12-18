@@ -8,7 +8,7 @@ public class CounterMeasure implements Serializable {
     // DataFields ( Variables)
     private double probabilityImpact = 0;
     private double consequenceImpact = 0;
-    private String description;
+    private final String description;
     private  boolean active = false;
     private String status;
 

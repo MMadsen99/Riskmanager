@@ -13,9 +13,7 @@ public class ProjectTable implements Serializable {
     ArrayList<Project> projects = new ArrayList<>();
 
     //Constructor, sørger for at en ny session starter med mindst et projekt.
-    public ProjectTable() {
-        projects.add(new Project("unnamed"));
-    }
+   
 
     //Skaber og tilfølger et nyt projekt til listen over projekter.
     public void createProject(String projectName) {

@@ -5,7 +5,7 @@ import model.Risk;
 
 public class RiskFX {
 
-    private CounterMeasure cm;
+    private final CounterMeasure cm;
     int id;
     String name;
     String description;

@@ -5,5 +5,5 @@ import exceptions.NoProjectException;
 
 public interface Observer {
 
-    public void Update(RiskManagerController controller) throws NoProjectException;
+    void Update(RiskManagerController controller) throws NoProjectException;
 }

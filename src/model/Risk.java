@@ -4,10 +4,10 @@ import java.io.Serializable;
 public class Risk implements Serializable {
 
     //Datafield (variables)
-    private String riskName;
-    private double probability;
-    private double consequence;
-    private String description;
+    private final String riskName;
+    private final double probability;
+    private final double consequence;
+    private final String description;
     private double priority;
     private double revisedProbability;
     private double revisedConsequence;

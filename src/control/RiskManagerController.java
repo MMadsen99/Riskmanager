@@ -1,4 +1,5 @@
 package control;
+
 import exceptions.NoProjectException;
 import exceptions.NoRiskException;
 import javafx.beans.binding.Bindings;
@@ -8,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,18 +22,17 @@ import view.ProjectTableFX;
 import view.ProjectsFX;
 import view.RiskFX;
 import view.RiskTableFX;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 public class RiskManagerController implements Initializable {
 
     @FXML
     private Button createProject;
-
-
-
     @FXML
     private Button loadProject;
 
@@ -61,20 +60,24 @@ public class RiskManagerController implements Initializable {
     @FXML
     public TableView<RiskFX> riskFXTableView = new TableView<>();
 
-
     @FXML
     private TextArea riskDesBox;
     @FXML
     private TextArea projectSummary;
-    @FXML private TextArea counterMeasureSummary;
+    @FXML
+    private TextArea counterMeasureSummary;
 
+    UnaryOperator<TextFormatter.Change> filter = change -> {
+        String text = change.getText();
 
+        if (text.matches("[0-9]*")) {
+            return change;
+        }
 
-
-
-
+        return null;
+    };
     // Data fields
-    Project openProject = new Project("unnamed");
+    Project openProject;
     RiskFX selectedRisk;
     ProjectsFX selectedProject;
     int riskId;
@@ -88,11 +91,10 @@ public class RiskManagerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ProjectsFX> projectsFXES = new ArrayList<>();
         if (getProjectTable() == null) return;
-        getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p.getProjectId(), p.getProjectName())));
-        if (projectFXListView != null) {
+        getProjectTable().getProjects().forEach(p -> projectsFXES.add(new ProjectsFX(p)));
             projectFXListView.getItems().addAll(projectsFXES);
         }
-    }
+
 
     public void createProject(String name) throws NoProjectException {
         projectTable.createProject(name);
@@ -100,12 +102,17 @@ public class RiskManagerController implements Initializable {
     }
 
     public void loadProjects() throws NoProjectException {
+        this.projectTable = null;
+
         ProjectLibrary.loadProjects(this);
-        projectFXListView.getItems().clear();
+        this.projectFXListView.getItems().clear();
+        this.riskFXTableView.getItems().clear();
+
         ArrayList<Project> projects = getProjectTable().getProjects();
-        for (Project project:projects) {
-            projectFXListView.getItems().add(new ProjectsFX(project.getProjectId(), project.getProjectName()));
+        for (Project project : projects) {
+            projectFXListView.getItems().add(new ProjectsFX(project));
         }
+        this.openProject = getProjectTable().getProjects().get(0);
         this.riskTableFX.Update(this);
     }
 
@@ -128,6 +135,7 @@ public class RiskManagerController implements Initializable {
         this.openProject.addRisk(name, probabilitySlideValue, consequence, description);
         this.riskTableFX.Update(this);
     }
+
     public void addRisk(int riskID, String name, double probabilitySlideValue, double consequence, String description) throws NoProjectException {
         this.openProject.addRisk(riskID, name, probabilitySlideValue, consequence, description);
         this.riskTableFX.Update(this);
@@ -142,6 +150,7 @@ public class RiskManagerController implements Initializable {
         getOpenProject().addCounterMeasure(riskID, probabilityImpact, consequenceImpact, description, active);
         this.riskTableFX.Update(this);
     }
+
     public void removeCounterMeasure(int riskID) throws NoProjectException {
         getOpenProject().removeCounterMeasure(riskID);
         this.riskTableFX.Update(this);
@@ -154,7 +163,7 @@ public class RiskManagerController implements Initializable {
 
     // Getters and Setters
     public ProjectTable getProjectTable() {
-        if(this.projectTable == null) return null;
+        if (this.projectTable == null) return null;
 
         return projectTable;
     }
@@ -182,87 +191,86 @@ public class RiskManagerController implements Initializable {
         return this.openProject;
     }
 
-   public void displayAddRiskPopUp(ActionEvent event) throws IOException {
-       // made a another push
-       Stage popupwindow =new Stage();
+    public void displayAddRiskPopUp(ActionEvent event) throws IOException {
+        // made a another push
+        Stage popupwindow = new Stage();
 
-       popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
 
-       popupwindow.setTitle("Add Risk");
+        popupwindow.setTitle("Add Risk");
 
-       Label labelName = new Label("Risk name");
-       labelName.setStyle("-fx-font-weight: bold");
+        Label labelName = new Label("Risk name");
+        labelName.setStyle("-fx-font-weight: bold");
 
-       Label labelDescription = new Label("Risk description");
-       labelDescription.setStyle("-fx-font-weight: bold");
+        Label labelDescription = new Label("Risk description");
+        labelDescription.setStyle("-fx-font-weight: bold");
 
-       Label labelConsequence = new Label("Risk consequence");
-       labelConsequence.setStyle("-fx-font-weight: bold");
+        Label labelConsequence = new Label("Risk consequence");
+        labelConsequence.setStyle("-fx-font-weight: bold");
 
-       Label labelProbability = new Label("Risk probability");
-       labelProbability.setStyle("-fx-font-weight: bold");
+        Label labelProbability = new Label("Risk probability");
+        labelProbability.setStyle("-fx-font-weight: bold");
 
-       TextField riskName = new TextField("Give the project name");
-       TextArea riskDescription = new TextArea("Give the project name");
-       TextField riskConsequence = new TextField("Give the project name");
-       Slider riskProbability = new Slider(0, 100, 25);
-       riskProbability.setShowTickMarks(true);
-       riskProbability.setShowTickLabels(true);
+        TextField riskName = new TextField("Give the project name");
+        TextArea riskDescription = new TextArea("Give the project name");
+        TextField riskConsequence = new TextField("Give the project name");
+        Slider riskProbability = new Slider(0, 100, 25);
+        riskProbability.setShowTickMarks(true);
+        riskProbability.setShowTickLabels(true);
 
-       final Label riskProbabilityLabel = new Label("");
+        final Label riskProbabilityLabel = new Label("");
 
-       riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
-
-
-       Button createButton = new Button(" Add  ");
-
-       Button cancelButton = new Button("Cancel");
-
-       createButton.setOnAction(e -> {
-
-           try {
-               addRisk(riskName.getText(),
-                       riskProbability.getValue(),
-                       Double.parseDouble(riskConsequence.getText()),
-                       riskDescription.getText()
-               );
-           } catch (NoProjectException noProjectException) {
-               noProjectException.printStackTrace();
-           }
-           popupwindow.close();
-       });
-
-       cancelButton.setOnAction(e -> popupwindow.close());
-
-       GridPane gridPane = new GridPane();
-
-       VBox  vBox = new VBox(labelName, riskName,
-                                    labelDescription, riskDescription,
-                                    labelConsequence, riskConsequence,
-                                    labelProbability,riskProbabilityLabel, riskProbability);
-       HBox  hBox = new HBox(createButton, cancelButton);
-
-       vBox.setSpacing(10);
-       hBox.setSpacing(25);
-
-       vBox.getChildren().add(hBox);
-       gridPane.getChildren().add(vBox);
-
-       gridPane.setAlignment(Pos.CENTER);
-
-       Scene scene1= new Scene(gridPane);
-       popupwindow.setScene(scene1);
-       popupwindow.showAndWait();
-
-       riskDesBox.setText(riskDescription.getText());
+       // riskConsequence.setTextFormatter(new TextFormatter<>(filter));
+        riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
 
 
+        Button createButton = new Button(" Add  ");
+
+        Button cancelButton = new Button("Cancel");
+
+        createButton.setOnAction(e -> {
+
+            try {
+                addRisk(           riskName.getText(),
+                        riskProbability.getValue(),
+                              Double.parseDouble(riskConsequence.getText()),
+                               riskDescription.getText()
+                );
+            } catch (NoProjectException noProjectException) {
+                noProjectException.printStackTrace();
+            }
+            popupwindow.close();
+        });
+
+        cancelButton.setOnAction(e -> popupwindow.close());
+
+        GridPane gridPane = new GridPane();
+
+        VBox vBox = new VBox(labelName, riskName,
+                labelDescription, riskDescription,
+                labelConsequence, riskConsequence,
+                labelProbability, riskProbabilityLabel, riskProbability);
+        HBox hBox = new HBox(createButton, cancelButton);
+
+        vBox.setSpacing(10);
+        hBox.setSpacing(25);
+
+        vBox.getChildren().add(hBox);
+        gridPane.getChildren().add(vBox);
+
+        gridPane.setAlignment(Pos.CENTER);
+
+        Scene scene1 = new Scene(gridPane);
+        popupwindow.setScene(scene1);
+        popupwindow.showAndWait();
+
+        riskDesBox.setText(riskDescription.getText());
     }
 
-    public void displayCreateProjectPopUp(ActionEvent event) throws IOException {
+    public void displayCreateProjectPopUp() throws IOException {
 
         // made a another push
-        Stage popupwindow =new Stage();
+        Stage popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
 
@@ -290,8 +298,8 @@ public class RiskManagerController implements Initializable {
 
         GridPane gridPane = new GridPane();
 
-        VBox  vBox = new VBox(label, projectName);
-        HBox  hBox = new HBox(createButton, cancelButton);
+        VBox vBox = new VBox(label, projectName);
+        HBox hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
         hBox.setSpacing(25);
@@ -303,16 +311,17 @@ public class RiskManagerController implements Initializable {
 
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(gridPane, 300, 250);
+        Scene scene1 = new Scene(gridPane, 300, 250);
         popupwindow.setScene(scene1);
 
         popupwindow.showAndWait();
-
-
+        if(this.openProject == null) {
+            this.openProject = getProjectTable().getProjects().get(0);
+        }
     }
 
     public void displayModifyRiskPopUp(ActionEvent event) throws IOException {
-        Stage popupwindow =new Stage();
+        Stage popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle("Modify Risk");
@@ -330,13 +339,15 @@ public class RiskManagerController implements Initializable {
         labelProbability.setStyle("-fx-font-weight: bold");
 
         RiskFX selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
+
         if (selectedRisk == null) return;
+
         int riskID = selectedRisk.getId();
         String name = selectedRisk.getName();
         double probability = selectedRisk.getProbability();
         double consequence = selectedRisk.getConsequence();
         String description = selectedRisk.getDescription();
-        if(selectedRisk.getCm() != null) {
+        if (selectedRisk.getCm() != null) {
             CounterMeasure cm = selectedRisk.getCm();
         }
 
@@ -348,6 +359,8 @@ public class RiskManagerController implements Initializable {
         riskProbability.setShowTickLabels(true);
 
         final Label riskProbabilityLabel = new Label("");
+
+        riskConsequence.setTextFormatter(new TextFormatter<>(filter));
 
         riskProbabilityLabel.textProperty().bind(Bindings.format("%.0f", riskProbability.valueProperty()));
 
@@ -364,7 +377,7 @@ public class RiskManagerController implements Initializable {
                         name,
                         probability,
                         consequence,
-                         description);
+                        description);
 
             } catch (NoProjectException | NoRiskException noProjectException) {
                 noProjectException.printStackTrace();
@@ -376,11 +389,11 @@ public class RiskManagerController implements Initializable {
 
         GridPane gridPane = new GridPane();
 
-        VBox  vBox = new VBox(labelName, riskName,
+        VBox vBox = new VBox(labelName, riskName,
                 labelDescription, riskDescription,
                 labelConsequence, riskConsequence,
-                labelProbability,riskProbabilityLabel ,riskProbability);
-        HBox  hBox = new HBox(createButton, cancelButton);
+                labelProbability, riskProbabilityLabel, riskProbability);
+        HBox hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
         hBox.setSpacing(25);
@@ -390,7 +403,7 @@ public class RiskManagerController implements Initializable {
 
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(gridPane);
+        Scene scene1 = new Scene(gridPane);
         popupwindow.setScene(scene1);
         popupwindow.showAndWait();
     }
@@ -472,8 +485,8 @@ public class RiskManagerController implements Initializable {
     }*/
 
 
-    public void displayAddCounterMeasurePopUp(ActionEvent event) throws IOException {
-        Stage popupwindow =new Stage();
+    public void displayAddCounterMeasurePopUp() throws IOException {
+        Stage popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle("AddCounterMeasure");
@@ -496,6 +509,9 @@ public class RiskManagerController implements Initializable {
 
         TextArea counterDescription = new TextArea();
         TextField counterConsequence = new TextField();
+
+        counterConsequence.setTextFormatter(new TextFormatter<>(filter));
+
         Slider counterProbability = new Slider(0, 100, selectedRisk.getProbability());
         CheckBox activeOrNot = new CheckBox();
 
@@ -517,7 +533,7 @@ public class RiskManagerController implements Initializable {
             try {
                 addCounterMeasure(selectedRisk.getId(), counterProbability.getValue(),
                         Double.parseDouble(counterConsequence.getText()),
-                        counterDescription.getText(),activeOrNot.isSelected()
+                        counterDescription.getText(), activeOrNot.isSelected()
                 );
             } catch (NoProjectException | NoRiskException noProjectException) {
                 noProjectException.printStackTrace();
@@ -529,13 +545,13 @@ public class RiskManagerController implements Initializable {
 
         GridPane gridPane = new GridPane();
 
-        VBox  vBox = new VBox(
+        VBox vBox = new VBox(
                 labelCounterDescription, counterDescription,
                 labelCounterConsequence, counterConsequence,
-                labelCounterProbability,counterProbabilityLabel, counterProbability,
+                labelCounterProbability, counterProbabilityLabel, counterProbability,
                 labelActiveOrNotBox, activeOrNot);
 
-        HBox  hBox = new HBox(createButton, cancelButton);
+        HBox hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
         hBox.setSpacing(25);
@@ -545,12 +561,12 @@ public class RiskManagerController implements Initializable {
 
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(gridPane);
+        Scene scene1 = new Scene(gridPane);
         popupwindow.setScene(scene1);
         popupwindow.showAndWait();
     }
 
-    public void displayDeleteRiskPopUp(ActionEvent event ) throws IOException {
+    public void displayDeleteRiskPopUp() {
         // made a another push
         Stage popupwindow = new Stage();
 
@@ -585,36 +601,32 @@ public class RiskManagerController implements Initializable {
 
         GridPane gridPane = new GridPane();
 
-        VBox  vBox = new VBox(label, riskLabel);
-        HBox  hBox = new HBox(createButton, cancelButton);
+        VBox vBox = new VBox(label, riskLabel);
+        HBox hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
         hBox.setSpacing(25);
 
         vBox.getChildren().add(hBox);
+
         gridPane.getChildren().add(vBox);
-
-        // layout.getChildren().addAll(projectName, createButton, cancelButton);
-
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(gridPane, 300, 250);
+        Scene scene1 = new Scene(gridPane, 300, 250);
         popupwindow.setScene(scene1);
-
         popupwindow.showAndWait();
     }
-
 
 
     @FXML
     void displayDeleteProjectPopUp(ActionEvent event) {
 
         // made a another push
-        Stage popupwindow = new Stage();
+        Stage popUpWindow = new Stage();
 
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popUpWindow.initModality(Modality.APPLICATION_MODAL);
 
-        popupwindow.setTitle("Delete Project");
+        popUpWindow.setTitle("Delete Project");
 
         this.selectedProject = projectFXListView.getSelectionModel().getSelectedItem();
         if (selectedProject == null) return;
@@ -634,15 +646,15 @@ public class RiskManagerController implements Initializable {
             } catch (NoProjectException noProjectException) {
                 noProjectException.printStackTrace();
             }
-            popupwindow.close();
+            popUpWindow.close();
         });
 
-        cancelButton.setOnAction(e -> popupwindow.close());
+        cancelButton.setOnAction(e -> popUpWindow.close());
 
         GridPane gridPane = new GridPane();
 
-        VBox  vBox = new VBox(label, riskLabel);
-        HBox  hBox = new HBox(createButton, cancelButton);
+        VBox vBox = new VBox(label, riskLabel);
+        HBox hBox = new HBox(createButton, cancelButton);
 
         vBox.setSpacing(10);
         hBox.setSpacing(25);
@@ -654,32 +666,32 @@ public class RiskManagerController implements Initializable {
 
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(gridPane, 300, 250);
-        popupwindow.setScene(scene1);
+        Scene scene1 = new Scene(gridPane, 300, 250);
+        popUpWindow.setScene(scene1);
 
-        popupwindow.showAndWait();
+        popUpWindow.showAndWait();
     }
 
     @FXML
-    void activateAndDeActivateCounterMeasure(ActionEvent event) throws NoProjectException, NoRiskException {
+    void activateAndDeActivateCounterMeasure() throws NoProjectException, NoRiskException {
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
         this.riskId = selectedRisk.getId();
 
         if (selectedRisk == null) return;
 
 
-        if(selectedRisk.getCmStatus().equals("Active")){
+        if (selectedRisk.getCmStatus().equals("Active")) {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-            activateCounterMeasure(selectedRisk.getId(),false);
-        }else {
+            activateCounterMeasure(selectedRisk.getId(), false);
+        } else {
             selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
-            activateCounterMeasure(selectedRisk.getId(),true);
+            activateCounterMeasure(selectedRisk.getId(), true);
             this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
 
         }
         this.counterMeasureSummary.setText(selectedRisk.getCm().toString());
-
     }
+
     @FXML
     public void loadRiskDescription() {
         this.selectedRisk = riskFXTableView.getSelectionModel().getSelectedItem();
