@@ -525,7 +525,6 @@ public class RiskManagerController implements Initializable {
         Button cancelButton = new Button("Cancel");
 
         createButton.setOnAction(e -> {
-            //System.out.println(selectedRisk.toString());
 
             try {
                 addCounterMeasure(selectedRisk.getId(), counterProbability.getValue(),
