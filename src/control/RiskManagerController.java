@@ -288,6 +288,9 @@ public class RiskManagerController implements Initializable {
 
             try {
                 createProject(projectName.getText());
+                if(this.openProject == null) {
+                    this.openProject = getProjectTable().getProjects().get(0);
+                }
             } catch (NoProjectException noProjectException) {
                 noProjectException.printStackTrace();
             }
@@ -306,18 +309,12 @@ public class RiskManagerController implements Initializable {
 
         vBox.getChildren().add(hBox);
         gridPane.getChildren().add(vBox);
-
-        // layout.getChildren().addAll(projectName, createButton, cancelButton);
-
         gridPane.setAlignment(Pos.CENTER);
 
         Scene scene1 = new Scene(gridPane, 300, 250);
         popupwindow.setScene(scene1);
 
         popupwindow.showAndWait();
-        if(this.openProject == null) {
-            this.openProject = getProjectTable().getProjects().get(0);
-        }
     }
 
     public void displayModifyRiskPopUp(ActionEvent event) throws IOException {
