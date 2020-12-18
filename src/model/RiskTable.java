@@ -17,7 +17,7 @@ public class RiskTable implements Serializable {
     }
 
     public void addRisk(int riskID, String riskName, double probability, double consequence, String description){
-        getRisks().add(new Risk(riskName, probability, consequence, description));
+        getRisks().add(new Risk(riskID, riskName, probability, consequence, description));
     }
 
     public void deleteRisk(int riskId) throws NoRiskException {
